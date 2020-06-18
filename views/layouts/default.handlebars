@@ -1,0 +1,20 @@
+{{> default/header}}
+
+<body>
+    <!-- Navigation -->
+    {{> default/top-navigation}}
+    <!-- Page Content & Container-->
+    <div class="container">
+        {{!-- this content get from route --}}
+        {{{ body }}}
+    </div>
+    <!-- Footer -->
+    {{> default/footer}}
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="/vendor/jquery/jquery.min.js"></script>
+    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
