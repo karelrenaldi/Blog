@@ -1,0 +1,25 @@
+.create-form {
+  padding: 1em;
+}
+
+.create-form h1 {
+  margin-left: 0.875em;
+}
+
+form {
+  margin-left: 2em;
+}
+
+label {
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.form-control {
+  padding: 0.3em 0.7em;
+}
+
+label[for="allowComments"] {
+  font-weight: 400;
+  color: crimson;
+}

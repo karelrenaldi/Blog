@@ -1,0 +1,39 @@
+<div class="create-form">
+    <h1> Create New Posts</h1>
+    <div class="row p-4">
+        <div class="col-md-10 form">
+            <form action="/admin/posts/create" method="POST">
+                <div class="form-group">
+                    <label for="title">Blog Title</label>
+                    <input type="text" class="form-control" name="title" id="title" placeholder="Write Your Blog Title"
+                        required autocomplete="off">
+                </div>
+
+                <div class="form-group">
+                    <label for="status">Status</label>
+                    <select name="status" id="status" class="form-control" required>
+                        <option value="" disabled selected>Select your Status</option>
+                        <option value="public">Public</option>
+                        <option value="private">Private</option>
+                        <option value="draft">Draft</option>
+                    </select>
+                </div>
+
+                <div class="form-check ml-3">
+                    <label for="allowComments">
+                        Allow Comments
+                        <input type="checkbox" name="allowComments" id="allowComments" class="form-control">
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea name="description" id="description" class="form-control" placeholder="Write Description"
+                        rows="10"></textarea>
+                </div>
+
+                <button class="btn btn-outline-success btn-lg" type="submit">Create Posts</button>
+            </form>
+        </div>
+    </div>
+</div>
