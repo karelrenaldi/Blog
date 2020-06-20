@@ -1,5 +1,9 @@
-exports.index = (req, res) => {
-  res.render("default/index");
+const Post = require("../models/postModel");
+// const Category = require("../models/categoryModel");
+
+exports.index = async (req, res) => {
+  const dataPost = await Post.find().lean();
+  res.render("default/index", { posts: dataPost });
 };
 
 exports.loginGet = (req, res) => {

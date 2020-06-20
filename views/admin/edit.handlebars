@@ -1,48 +1,57 @@
 <div class="create-form">
-    <h1>Create New Posts</h1>
+    <h1>Edit Post</h1>
     <div class="row p-4">
         <div class="col-md-10 form">
-            <form action="/admin/posts/create" method="POST">
+            <form action="{{post._id}}?newMethod=PATCH" method="POST">
                 <div class="form-group">
                     <label for="title">Blog Title</label>
                     <input type="text" class="form-control" name="title" id="title" placeholder="Write Your Blog Title"
-                        required autocomplete="off">
+                        required autocomplete="off" value={{post.title}}>
                 </div>
 
                 <div class="form-group">
                     <label for="status">Status</label>
                     <select name="status" id="status" class="form-control" required>
-                        <option value="" disabled selected>Select your Status</option>
+                        {{#select post.status}}
                         <option value="public">Public</option>
                         <option value="private">Private</option>
                         <option value="draft">Draft</option>
+                        {{/select}}
                     </select>
                 </div>
 
                 <div class="form-group">
                     <label for="category">Category</label>
                     <select name="category" id="category" class="form-control" required>
-                        <option value="" disabled selected>Select your Category</option>
+                        {{#select post.category}}
                         {{#each categories}}
                         <option value={{_id}}>{{title}}</option>
                         {{/each}}
+                        {{/select}}
                     </select>
                 </div>
 
                 <div class="form-check ml-3">
+                    {{#if post.allowComment}}
+                    <label for="allowComments">
+                        <input type="checkbox" name="allowComments" id="allowComments" class="form-check-input" checked>
+                        Allow Comments
+                    </label>
+                    {{else}}
                     <label for="allowComments">
                         <input type="checkbox" name="allowComments" id="allowComments" class="form-check-input">
                         Allow Comments
                     </label>
+                    {{/if}}
                 </div>
 
                 <div class="form-group">
                     <label for="description">Description</label>
                     <textarea name="description" id="description" class="form-control" placeholder="Write Description"
-                        rows="10"></textarea>
+                        rows="10">{{post.description}}</textarea>
                 </div>
 
-                <button class="btn btn-outline-success btn-lg" type="submit">Create Posts</button>
+                <button class="btn btn-outline-success btn-lg" type="submit">Edit Post</button>
             </form>
         </div>
     </div>

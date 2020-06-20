@@ -1,0 +1,45 @@
+<div class="container">
+    <h3 class="alert alert-dark p-3 text-dark text-center">All Categories </h3>
+
+    <div class="row">
+        <div class="col-6 mx-auto">
+            <table class="table text-center">
+                <thead class="bg-category-head">
+                    <tr>
+                        <th>Title</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-category-body category-body">
+                    {{#each categories}}
+                    <tr>
+                        <td>{{title}}</td>
+                        <td class="action-categories">
+                            <a href="/admin/category/edit/{{_id}}" class="btn btn-sm btn-warning mr-2">Edit</a>
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row p-4">
+        <div class="col-md-10">
+            <form action="/admin/category/edit/{{category._id}}?newMethod=PATCH" method="POST">
+                <div class="form-group">
+                    <label for="title">CATEGORY TITLE</label>
+                    <input type="text" class="form-control" id="category-title" name="title" value="{{category.title}}"
+                        autocomplete="off">
+                </div>
+
+                <button class="btn btn-outline-success btn-md" id="edit-category-button" type="submit">Update
+                    Category</button>
+            </form>
+        </div>
+    </div>
+
+</div>

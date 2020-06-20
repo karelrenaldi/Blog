@@ -1,0 +1,91 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+img {
+  width: 360px;
+  height: 360px;
+}
+
+main {
+  min-height: 100vh;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+h1 {
+  font-size: 3rem;
+  font-family: "Krona One", sans-serif;
+}
+
+p {
+  font-size: 1.3rem;
+  font-family: "Merriweather", serif;
+  color: #696969;
+}
+
+.right-main {
+  text-align: center;
+}
+
+.button {
+  display: inline-block;
+  font-family: "Krona One", sans-serif;
+  color: #262626;
+  text-decoration: none;
+  padding: 1em 1.4em;
+  margin-top: 0.95em;
+  border-radius: 1rem;
+  border: 1px solid #262626;
+  transition: all 0.4s ease-in-out;
+}
+
+.button:hover {
+  color: #fff;
+  background-color: #262626;
+}
+
+@media (max-width: 800px) {
+  main {
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+  .left-main {
+    margin-right: 0;
+  }
+  img {
+    width: 320px;
+    height: 320px;
+  }
+  h1 {
+    font-size: 1.4rem;
+  }
+  p {
+    font-size: 1rem;
+  }
+  .button {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 400px) {
+  img {
+    width: 250px;
+    height: 250px;
+  }
+  h1 {
+    font-size: 1.2rem;
+  }
+  p {
+    font-size: 0.8rem;
+  }
+  .button {
+    font-size: 0.8rem;
+  }
+}

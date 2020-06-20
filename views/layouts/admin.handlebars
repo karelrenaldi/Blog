@@ -2,13 +2,18 @@
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
     <!-- Navigation-->
-    {{> admin/admin-navbar}}
+    <nav class="navbar-admin">
+        {{> admin/admin-navbar}}
+    </nav>
     <div class="content-wrapper">
+        {{> admin/messages}}
         {{{ body }}}
     </div>
     <!-- /.container-fluid-->
     <!-- /.content-wrapper-->
-    {{> admin/admin-footer}}
+    <footer class="footer-admin">
+        {{> admin/admin-footer}}
+    </footer>
 </body>
 
 </html>
