@@ -1,3 +1,11 @@
+{{#if errors}}
+{{#each errors}}
+<div class="message-box failed" role="alert" style="margin-top: .8em;">
+    <strong>{{message}}</strong>
+    <button type="button" class="close-message">❌</button>
+</div>
+{{/each}}
+{{/if}}
 <div class="card card-register mx-auto my-5">
     <div class="card-header">Register an Account</div>
     <div class="card-body">
@@ -24,12 +32,14 @@
             <div class="form-group">
                 <div class="form-row">
                     <div class="col-md-6">
-                        <label for="exampleInputPassword1">Password</label>
+                        <label for="exampleInputPassword1">Password <span style="opacity: .7;">(Minimum 8
+                                Characters)</span></label>
                         <input name="password" class="form-control" id="exampleInputPassword1" type="password"
                             placeholder="Password" required>
                     </div>
                     <div class="col-md-6">
-                        <label for="exampleConfirmPassword">Confirm password</label>
+                        <label for="exampleConfirmPassword">Confirm password <span style="opacity: .7;">(Minimum 8
+                                Characters)</span></label>
                         <input name="passwordConfirm" class="form-control" id="exampleConfirmPassword" type="password"
                             placeholder="Confirm password" required>
                     </div>

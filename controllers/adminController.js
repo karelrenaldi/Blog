@@ -19,14 +19,35 @@ exports.posts = async (req, res) => {
 
 exports.submitPost = async (req, res) => {
   try {
+    // TODO Make Image Upload
     const allow = !!req.body.allowComments;
-    await Post.create({
-      title: req.body.title,
-      status: req.body.status,
-      description: req.body.description,
-      allowComment: allow,
-      category: req.body.category,
-    });
+    let filename = "";
+    if (req.files) {
+      const file = req.files.fileUpload;
+      filename = file.name;
+      file.mv(`./public/uploads/${filename}`, (err) => {
+        if (err) res.send(err);
+      });
+    }
+
+    if (filename === "") {
+      await Post.create({
+        title: req.body.title,
+        status: req.body.status,
+        description: req.body.description,
+        allowComment: allow,
+        category: req.body.category,
+      });
+    } else {
+      await Post.create({
+        title: req.body.title,
+        status: req.body.status,
+        description: req.body.description,
+        allowComment: allow,
+        category: req.body.category,
+        file: `/uploads/${filename}`,
+      });
+    }
     req.flash("success-message", "Post Created Successfully");
     res.redirect("/admin/posts");
   } catch (err) {

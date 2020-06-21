@@ -1,0 +1,14 @@
+<div class="container">
+    {{#if success_message}}
+    <div class="message-box succes" role="alert">
+        <strong>{{success_message}}</strong>
+        <button type=" button" class="close-message">❌</button>
+    </div>
+    {{/if}}
+    {{#if failed_message}}
+    <div class="message-box failed" role="alert">
+        <strong>{{failed_message}}</strong>
+        <button type=" button" class="close-message">❌</button>
+    </div>
+    {{/if}}
+</div>

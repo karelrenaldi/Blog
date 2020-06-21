@@ -36,6 +36,10 @@ const PostSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  file: {
+    type: String,
+    default: "",
+  },
 });
 
 const Post = mongoose.model("Post", PostSchema);

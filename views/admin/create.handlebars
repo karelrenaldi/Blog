@@ -2,11 +2,16 @@
     <h1>Create New Posts</h1>
     <div class="row p-4">
         <div class="col-md-10 form">
-            <form action="/admin/posts/create" method="POST">
+            <form action="/admin/posts/create" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="title">Blog Title</label>
                     <input type="text" class="form-control" name="title" id="title" placeholder="Write Your Blog Title"
                         required autocomplete="off">
+                </div>
+
+                <div class="form-group">
+                    <label for="file">File Upload</label>
+                    <input type="file" name="fileUpload" id="file" class="form-control">
                 </div>
 
                 <div class="form-group">

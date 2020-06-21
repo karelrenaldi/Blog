@@ -5,15 +5,17 @@ const morgan = require("morgan");
 const flash = require("connect-flash");
 const session = require("express-session");
 const methodOverride = require("method-override");
+const fileUpload = require("express-fileupload");
+const passport = require("passport");
+const { selectOption } = require("./config/helper");
 
 const app = express();
 
-/* Custom Helper Functions */
-function selectOption(status, options) {
-  return options
-    .fn(this)
-    .replace(new RegExp(`value="${status}"`), '$&selected="selected"');
-}
+// Passport Config
+require("./config/passport")(passport);
+
+/* File Upload Middleware*/
+app.use(fileUpload());
 
 /* Global Variables */
 const globalVariables = (req, res, next) => {
@@ -50,6 +52,11 @@ app.use(
   })
 );
 app.use(flash());
+
+// Passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
 /* Global Variables */
 app.use(globalVariables);
 
@@ -59,7 +66,7 @@ app.use(methodOverride("newMethod"));
 /* Routes */
 app.use("/", defaultRoutes);
 app.use("/admin", adminRoutes);
-// Middleware 404 page
+// 404 routes
 app.use((req, res) => {
   req.app.locals.layout = "404";
   res.status(404).render(`${__dirname}/views/404`);
