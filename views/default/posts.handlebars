@@ -1,0 +1,44 @@
+<main>
+    <div class="posts">
+        {{#if category}}
+        <h1 class="posts-category">{{category}}</h1>
+        {{else}}
+        <h1 class="posts-category">All Projects</h1>
+        {{/if}}
+
+        {{#each posts}}
+        <div class="post">
+            <div class="head-post">
+                {{#if file}}
+                <img class="card-img-top" src="{{file}}" alt="Card image cap">
+                {{else}}
+                <img class="card-img-top" src="https://picsum.photos/id/1011/1000/1000" alt="Card image cap">
+                {{/if}}
+            </div>
+
+            <div class="main-post">
+                <div class="footer-post-title">
+                    <div class="calender">
+                        <div class="calender-date">27</div>
+                        <div class="calender-month">JAN</div>
+                    </div>
+                    <div class="creator">
+                        <div class="creator-logo"></div>
+                        <p class="creator-name">KM ITB</p>
+                    </div>
+                </div>
+                <div class="main-post-title">
+                    <h1 class="title">
+                        {{title}}
+                    </h1>
+                    <p class="preview">
+                        {{preview description}}
+                    </p>
+                    <p class="category">#{{category.title}}</p>
+                    <a href="/project/{{_id}}" class="read-more">Read More =></a>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</main>

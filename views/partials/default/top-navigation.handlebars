@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+{{!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
         <a class="navbar-brand" href="#">Kementrian Implementasi Bisnis KM ITB</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
@@ -8,18 +8,124 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="/">Home</a>
+                    <a class="nav-link" href="/">About</a>
                 </li>
+                {{#if login}}
+                {{#if admin}}
                 <li class="nav-item">
                     <a class="nav-link" href="/admin">Admin</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>
+                {{else}}
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>
+                {{/if}}
+                {{else}}
                 <li class="nav-item">
                     <a class="nav-link" href="/login">Login</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/register">Register</a>
                 </li>
+                {{/if}}
             </ul>
         </div>
     </div>
-</nav>
+</nav> --}}
+
+<header class="header">
+    <div class="overlay">
+        <ul class="menu-list">
+            <li class="menu-list-item">
+                <a class="nav-link" href="/">Home</a>
+            </li>
+            <li class="menu-list-item">
+                <a class="nav-link" href="/allPost">posts</a>
+            </li>
+            {{#if login}}
+            {{#if admin}}
+            <li class="menu-list-item">
+                <a class="nav-link" href="/admin">Admin</a>
+            </li>
+            <li class="menu-list-item">
+                <a class="nav-link" href="/logout">Logout</a>
+            </li>
+            {{else}}
+            <li class="menu-list-item">
+                <a class="nav-link" href="/logout">Logout</a>
+            </li>
+            {{/if}}
+            {{else}}
+            <li class="menu-list-item">
+                <a class="nav-link" href="/login">Login</a>
+            </li>
+            <li class="menu-list-item">
+                <a class="nav-link" href="/register">Register</a>
+            </li>
+            {{/if}}
+        </ul>
+    </div>
+
+    <nav>
+        <div class="title">
+            <img src="/img/logo.png" alt="logo" class="logo" />
+            <div class="sub-title">
+                <h2 class="sub-title-text">Kementrian Implementasi Bisnis</h2>
+                <h2 class="sub-title-text sub-title-text-color">KM ITB</h2>
+            </div>
+        </div>
+
+
+
+        <div class="nav-list">
+            <ul class="navbar-ul">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+
+                <li class="nav-item" id="dropdown">
+                    <p class="nav-link">Projets</p>
+                    <div class="dropdown-menu dropdown-menu-large">
+                        <a class="nav-link" href="/allProjets">All Projets</a>
+                        <a class="nav-link" href="/allProjets?category=Pengabdian Masyarakat">Pengabdian Masyarakat</a>
+                        <a class="nav-link" href="/allProjets?category=Seminar-Pengembangan Diri">Seminar & Pengembangan
+                            Diri</a>
+                        <a class="nav-link" href="/allProjets?category=Proyek-Acara">Proyek & Acara</a>
+                        <a class="nav-link" href="/allProjets?category=Kompetisi">Kompetisi</a>
+                        <a class="nav-link" href="/allProjets?category=Lainnya">Lainnya</a>
+                    </div>
+                </li>
+                {{#if login}}
+                {{#if admin}}
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin">Admin</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>
+                {{else}}
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>
+                {{/if}}
+                {{else}}
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/register">Register</a>
+                </li>
+                {{/if}}
+            </ul>
+        </div>
+
+        <div class="hamburger-menu">
+            <div class="menu-line menu-line-top"></div>
+            <div class="menu-line menu-line-mid"></div>
+            <div class="menu-line menu-line-bottom"></div>
+        </div>
+    </nav>
+</header>

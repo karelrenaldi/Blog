@@ -1,0 +1,39 @@
+/*=================LOGIN============== */
+.login .password,
+.login .email {
+  display: flex;
+  flex-direction: column;
+  grid-gap: 0;
+}
+
+.login .password label,
+.login .email label {
+  margin-bottom: 0.5em;
+}
+
+.login {
+  width: 70%;
+}
+
+.login-form {
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  padding-bottom: 0.3em;
+}
+
+.login-footer {
+  background-color: var(--dark-blue);
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  padding: 0.3em 0 0.7em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-footer > * {
+  text-decoration: none;
+  color: var(--light-grey);
+  font-size: 1rem;
+  border-bottom: 3px solid var(--black);
+}

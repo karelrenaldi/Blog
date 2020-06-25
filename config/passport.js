@@ -11,35 +11,32 @@ module.exports = function (passport) {
         usernameField: "email",
         passReqToCallback: true,
       },
-      (req, email, password, done) => {
+      async (req, email, password, done) => {
         // Match user
-        User.findOne({
-          email: email,
-        }).then((user) => {
-          if (!user) {
+        const user = await User.findOne({ email: email });
+        if (!user) {
+          return done(
+            null,
+            false,
+            req.flash("failed-message", "That email is not registered")
+          );
+        }
+
+        // Match password
+        bcrypt.compare(password, user.password, (err, isMatch) => {
+          if (err) throw err;
+          if (isMatch) {
             return done(
               null,
-              false,
-              req.flash("failed-message", "That email is not registered")
+              user,
+              req.flash("success-message", "Login Successful")
             );
           }
-
-          // Match password
-          bcrypt.compare(password, user.password, (err, isMatch) => {
-            if (err) throw err;
-            if (isMatch) {
-              return done(
-                null,
-                user,
-                req.flash("success-message", "Login Successful")
-              );
-            }
-            return done(
-              null,
-              false,
-              req.flash("failed-message", "Password Incorect")
-            );
-          });
+          return done(
+            null,
+            false,
+            req.flash("failed-message", "Password Incorect")
+          );
         });
       }
     )

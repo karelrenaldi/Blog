@@ -16,7 +16,7 @@ const CommentSchema = new mongoose.Schema({
   },
   commentPermission: {
     type: Boolean,
-    default: false,
+    default: true,
   },
 });
 

@@ -1,0 +1,82 @@
+/*======Main Register=======*/
+.register,
+.login {
+  width: 80%;
+  margin: 0 auto 0;
+  border-radius: 3px;
+  box-shadow: 0px 15px 30px -14px rgba(0, 0, 0, 0.75);
+}
+
+.register-header,
+.login-header {
+  background-color: var(--dark-grey);
+  text-align: center;
+  padding: 1em 0;
+  text-transform: uppercase;
+  font-family: "Oswald", sans-serif;
+  letter-spacing: 1.4px;
+  font-weight: 500;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  color: var(--light-grey);
+}
+
+.register-form,
+.login-form {
+  background-color: var(--dark-blue);
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  padding: 0.9em;
+}
+
+.register-form > *,
+.login-form > * {
+  padding: 1em;
+  display: grid;
+}
+
+.form-input {
+  border: none;
+  padding: 1em;
+  border-radius: 5px;
+  background-color: var(--dark-grey);
+  color: var(--light-grey);
+  font-family: "Oswald", sans-serif;
+  letter-spacing: 1.1px;
+  outline: none;
+  font-weight: 500;
+}
+
+.form-input::placeholder {
+  font-family: "Oswald", sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.name,
+.password {
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1.2em;
+}
+
+.name {
+  padding-bottom: 0;
+}
+.password {
+  padding-top: 0;
+}
+
+.submit-btn {
+  border: none;
+  background-color: var(--dark-grey);
+  margin: 0 auto;
+  border-radius: 10px;
+  color: var(--light-grey);
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  border-bottom: 5px solid #26313f;
+}
+
+.submit-btn:hover {
+  background-color: #26313f;
+}

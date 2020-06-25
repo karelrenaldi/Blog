@@ -1,5 +1,6 @@
 const Post = require("../models/postModel");
 const Category = require("../models/categoryModel");
+const Comment = require("../models/commentModel");
 
 exports.index = (req, res) => {
   res.render("admin/index");
@@ -20,6 +21,15 @@ exports.posts = async (req, res) => {
 exports.submitPost = async (req, res) => {
   try {
     // TODO Make Image Upload
+    const texts = req.body.description.split("\r\n");
+    const newTexts = texts
+      .map((text) => {
+        if (text.length === 0) {
+          return "<br /><br />";
+        }
+        return text;
+      })
+      .join("\n");
     const allow = !!req.body.allowComments;
     let filename = "";
     if (req.files) {
@@ -34,7 +44,7 @@ exports.submitPost = async (req, res) => {
       await Post.create({
         title: req.body.title,
         status: req.body.status,
-        description: req.body.description,
+        description: newTexts,
         allowComment: allow,
         category: req.body.category,
       });
@@ -42,7 +52,7 @@ exports.submitPost = async (req, res) => {
       await Post.create({
         title: req.body.title,
         status: req.body.status,
-        description: req.body.description,
+        description: newTexts,
         allowComment: allow,
         category: req.body.category,
         file: `/uploads/${filename}`,
@@ -191,4 +201,9 @@ exports.deleteCategory = async (req, res) => {
       message: err,
     });
   }
+};
+
+exports.comment = async (req, res) => {
+  const comments = await Comment.find().populate("user").lean();
+  res.render("admin/comments", { comments: comments });
 };

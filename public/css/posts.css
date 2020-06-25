@@ -1,0 +1,104 @@
+/* posts */
+
+.posts {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 1em;
+  justify-items: center;
+}
+
+.posts > * {
+  /* border: 1px solid magenta; */
+  width: 85%;
+}
+
+.posts .posts-category {
+  padding: 0.8em;
+  font-size: 1.8rem;
+  font-family: "Poppins", sans-serif;
+  color: var(--dark-blue);
+  font-weight: 500;
+}
+
+.post img {
+  width: 100%;
+  height: 65vh;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 8px;
+}
+
+.main-post {
+  margin: 1em 0;
+  display: grid;
+  grid-gap: 0.6em;
+  grid-template-columns: 1fr 5fr;
+}
+
+.main-post .main-post-title {
+  display: grid;
+  grid-template-columns: 1fr;
+  /* grid-gap: 1.1em; */
+}
+
+.main-post .main-post-title .title {
+  font-size: 1.7rem;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  color: var(--dark-grey);
+  margin-bottom: 1em;
+}
+
+.main-post .main-post-title .preview {
+  font-size: 1rem;
+}
+
+.main-post .main-post-title .read-more {
+  display: inline-block;
+  padding: 0.6em;
+  text-decoration: none;
+  color: var(--dark-blue);
+  background-color: var(--dark-grey);
+  border-radius: 5px;
+  justify-self: start;
+}
+
+.main-post .footer-post-title .calender {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main-post .footer-post-title .calender .calender-date {
+  font-size: 2.1rem;
+  color: var(--dark-grey);
+}
+
+.main-post .footer-post-title .calender .calender-month {
+  font-size: 1.8rem;
+  color: var(--dark-blue);
+}
+
+.main-post .footer-post-title .creator {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-top: 1em;
+}
+
+.main-post .footer-post-title .creator .creator-logo {
+  width: 3em;
+  height: 3em;
+  background-color: var(--dark-grey);
+  border-radius: 50%;
+}
+
+.main-post .footer-post-title .creator .creator-name {
+  font-size: 1.4rem;
+}
+
+.main-post-title .category {
+  padding: 0;
+  margin: 0.5em 0;
+  color: var(--dark-blue);
+}

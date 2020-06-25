@@ -1,4 +1,4 @@
-<div class="card card-login mx-auto my-5">
+{{!-- <div class="card card-login mx-auto my-5">
     <div class="card-header">Login</div>
 
     <div class="card-body">
@@ -28,4 +28,33 @@
             <a class="d-block small" href="/">Home Page?</a>
         </div>
     </div>
-</div>
+</div> --}}
+
+<main>
+    <div class="login">
+        <div class="login-header">Login</div>
+        <div class="login-body">
+            <form action="/login" method="post" class="login-form">
+                <!-- Email -->
+                <div class="email">
+                    <label for="email">Email address</label>
+                    <input name="email" class="form-input" id="email" type="email" aria-describedby="emailHelp"
+                        placeholder="Enter email" required autocomplete="off" />
+                </div>
+
+                <!-- Password -->
+                <div class="password">
+                    <label for="password">Password</label>
+                    <input name="password" class="form-input" id="password" type="password" placeholder="Password"
+                        required />
+                </div>
+
+                <button type="submit" class="submit-btn">Login</button>
+            </form>
+            <div class="login-footer">
+                <a class="d-block small mt-3" href="/register">Register an Account</a>
+                <a class="d-block small" href="/">Home Page</a>
+            </div>
+        </div>
+    </div>
+</main>

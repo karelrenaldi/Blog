@@ -1,128 +1,59 @@
-<div class="row">
-
-    <!-- Post Content Column -->
-    <div class="col-lg-8">
-
-        <!-- Title -->
-        <h1 class="mt-4">{{post.title}}</h1>
-
-        <!-- Author -->
-        <p class="lead">
-            by
-            <a href="#">Admin</a>
-        </p>
-
-        {{!-- <hr> --}}
-
-        <!-- Date/Time -->
-        <p>Posted on {{post.creationDate}}</p>
-
-        {{!-- <hr> --}}
-
-        <!-- Preview Image -->
-        {{#if post.file}}
-        <img class="card-img-top" src={{post.file}} alt="Card image cap">
-        {{else}}
-        <img class="card-img-top" src="https://picsum.photos/id/1011/750/300" alt="Card image cap">
-        {{/if}}
-
-        <hr>
-        {{!-- <hr> --}}
-
-        <!-- Post Content -->
-        <p class="lead">{{post.description}}</p>
-
-
-        <hr>
-
-        <!-- Comments Form -->
-        <div class="card my-4">
-            <h5 class="card-header">Leave a Comment:</h5>
-            <div class="card-body">
-                <form>
-                    <div class="form-group">
-                        <textarea class="form-control" rows="3"></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
-            </div>
+<main>
+    <div class="spesific-post">
+        <div class="back-to-home">
+            <a href="/allProjets">
+                < BACK TO ALL PROJECTS</a>
         </div>
-
-        <!-- Single Comment -->
-        <div class="media mb-4">
-            <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-            <div class="media-body">
-                <h5 class="mt-0">Commenter Name</h5>
-                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus
-                odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate
-                fringilla. Donec lacinia congue felis in faucibus.
-            </div>
-        </div>
-
-
-    </div>
-
-    <!-- Sidebar Widgets Column -->
-    <div class="col-md-4">
-
-        <!-- Search Widget -->
-        <div class="card my-4">
-            <h5 class="card-header">Search</h5>
-            <div class="card-body">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for...">
-                    <span class="input-group-btn">
-                        <button class="btn btn-secondary" type="button">Go!</button>
-                    </span>
+        <div class="spesific-post-content">
+            <div class="header-content">
+                {{#if post.file}}
+                <img class="card-img-top" src="{{post.file}}" alt="Card image cap">
+                {{else}}
+                <img class="card-img-top" src="https://picsum.photos/id/1011/750/300" alt="Card image cap">
+                {{/if}}
+                <div class="header-content-text">
+                    <h1 class="title">
+                        {{post.title}}
+                    </h1>
+                    <p><span>Created by KM ITB</span></p>
                 </div>
             </div>
+            <div class="main-content">
+                <p class="description">
+                    {{{post.description}}}
+                </p>
+            </div>
         </div>
-
-        <!-- Categories Widget -->
-        <div class="card my-4">
-            <h5 class="card-header">Categories</h5>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <ul class="list-unstyled mb-0">
-                            <li>
-                                <a href="#">Web Design</a>
-                            </li>
-                            <li>
-                                <a href="#">HTML</a>
-                            </li>
-                            <li>
-                                <a href="#">Freebies</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="col-lg-6">
-                        <ul class="list-unstyled mb-0">
-                            <li>
-                                <a href="#">JavaScript</a>
-                            </li>
-                            <li>
-                                <a href="#">CSS</a>
-                            </li>
-                            <li>
-                                <a href="#">Tutorials</a>
-                            </li>
-                        </ul>
-                    </div>
+        <hr />
+        <div class="spesific-post-footer">
+            <!-- Comment section -->
+            <div class="comment">
+                <h5 class="comment-header">Leave a Comment:</h5>
+                <div class="comment-body">
+                    <form action="/project/{{post._id}}" method="POST">
+                        <div class="form-group">
+                            <textarea class="form-control" rows="3" name="comment_body"></textarea>
+                            <input type="hidden" name="id" value="{{post._id}}" />
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
                 </div>
             </div>
-        </div>
 
-        <!-- Side Widget -->
-        <div class="card my-4">
-            <h5 class="card-header">Side Widget</h5>
-            <div class="card-body">
-                You can put anything you want inside of these side widgets. They are easy to use, and feature the new
-                Bootstrap 4 card containers!
+            <!-- Comment display -->
+            <div class="comments">
+                {{#each post.comments}}
+                {{#if commentPermission}}
+                <div class="comment-display">
+                    <div class="profile"></div>
+                    <div class="comments-body">
+                        <h5>{{user.firstName}} {{user.lastName}}</h5>
+                        <p>{{body}}</p>
+                    </div>
+                </div>
+                {{/if}}
+                {{/each}}
             </div>
         </div>
-
     </div>
-
-</div>
-<!-- /.row -->
+</main>

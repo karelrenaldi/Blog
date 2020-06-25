@@ -6,7 +6,7 @@
 </div>
 {{/each}}
 {{/if}}
-<div class="card card-register mx-auto my-5">
+{{!-- <div class="card card-register mx-auto my-5">
     <div class="card-header">Register an Account</div>
     <div class="card-body">
         <form action="/register" method="post">
@@ -53,4 +53,39 @@
             <a class="d-block small" href="/">Home Page?</a>
         </div>
     </div>
-</div>
+</div> --}}
+
+<main>
+    <div class="register">
+        <div class="register-header">Register an Account</div>
+        <div class="register-body">
+            <form action="/register" method="post" class="register-form">
+                <!-- NAME -->
+                <div class="name">
+                    <input name="firstName" class="form-input" id="firstName" type="text" aria-describedby="nameHelp"
+                        placeholder="First Name" required autocomplete="off" />
+
+                    <input name="lastName" class="form-input" id="lastName" type="text" aria-describedby="nameHelp"
+                        placeholder="Last Name" required autocomplete="off" />
+                </div>
+
+                <!-- Email -->
+                <div class="email">
+                    <input name="email" class="form-input" id="email" type="email" aria-describedby="emailHelp"
+                        placeholder="Enter email" required autocomplete="off" />
+                </div>
+
+                <!-- Password -->
+                <div class="password">
+                    <input name="password" class="form-input" id="password" type="password" placeholder="Password"
+                        required />
+
+                    <input name="passwordConfirm" class="form-input" id="passwordConfirm" type="password"
+                        placeholder="Confirm password" required />
+                </div>
+
+                <button type="submit" class="submit-btn">Register</button>
+            </form>
+        </div>
+    </div>
+</main>

@@ -4,10 +4,22 @@ exports.selectOption = function (status, options) {
     .replace(new RegExp(`value="${status}"`), '$&selected="selected"');
 };
 
+exports.preview = function (value) {
+  if (value.length > 100) return `${value.slice(0, 120)}...`;
+  return `${value} ...`;
+};
+
 exports.isUserAuthenticated = function (req, res, next) {
-  if (req.isAuthenticated()) {
+  if (global.admin) {
     next();
+  } else if (global.login) {
+    res.redirect("/");
   } else {
     res.redirect("/login");
   }
+  // if (req.isAuthenticated()) {
+  //   next();
+  // } else {
+  //   res.redirect("/login");
+  // }
 };
