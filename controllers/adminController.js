@@ -78,6 +78,7 @@ exports.editMenuProject = async (req, res) => {
   const { id } = req.params;
   const dataCategory = await Category.find().lean();
   const dataPost = await Post.findById(id).populate("category").lean();
+  console.log(dataPost);
   res.render("admin/edit", { post: dataPost, categories: dataCategory });
 };
 
