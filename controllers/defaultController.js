@@ -66,13 +66,13 @@ exports.loginPost = async (req, res) => {
   //todo
   // const dataPost = await Post.find().lean();
   const admin = ["karelrenaldi8@gmail.com", "kmitb@itb.com"];
-  const {firstName, lastName} = userData;
   if (!userData) {
     global.login = false;
     global.admin = false;
     req.flash("failed-message", invalidMessage);
     res.redirect("/login");
   } else {
+    const {firstName, lastName} = userData;
     const isMatchPassword = await bcrypt.compare(password, userData.password);
     if (!isMatchPassword) {
       global.login = false;
@@ -131,7 +131,6 @@ exports.registerPost = async (req, res) => {
           password: hashPassword,
         });
         req.flash("success-message", "You Are Now Registered");
-        req.flash("success-message", "You Are Now Registered");
         res.redirect("/login");
       }
     }
@@ -150,6 +149,7 @@ exports.project = async (req, res) => {
     const post = await Post.findById(id)
       .populate({ path: "comments", populate: { path: "user", model: "User" } })
       .lean();
+    post.description = post.description.replace(/\r?\n/g, '<br />')
     res.render("default/project", { post: post, admin: admin, login: login });
   } catch (err) {
     res.status(400).json({
@@ -218,7 +218,7 @@ exports.post = async(req, res) => {
     const post = await Project.findById(id)
       .populate({ path: "comments", populate: { path: "user", model: "User" } })
       .lean();
-    console.log(post.description);
+    post.description = post.description.replace(/\r?\n/g, '<br />')
     res.render("default/post", { post: post, admin: admin, login: login });
   } catch (err) {
     res.status(400).json({

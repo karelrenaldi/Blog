@@ -22,15 +22,7 @@ exports.projects = async (req, res) => {
 
 exports.submitProject = async (req, res) => {
   try {
-    const texts = req.body.description.split("\r\n");
-    const newTexts = texts
-      .map((text) => {
-        if (text.length === 0) {
-          return "<br /><br />";
-        }
-        return text;
-      })
-      .join("\n");
+    const texts = req.body.description;
     const allow = !!req.body.allowComments;
     let filename = "";
     if (req.files) {
@@ -45,7 +37,7 @@ exports.submitProject = async (req, res) => {
       await Post.create({
         title: req.body.title,
         status: req.body.status,
-        description: newTexts,
+        description: texts,
         allowComment: allow,
         category: req.body.category,
       });
@@ -53,7 +45,7 @@ exports.submitProject = async (req, res) => {
       await Post.create({
         title: req.body.title,
         status: req.body.status,
-        description: newTexts,
+        description: texts,
         allowComment: allow,
         category: req.body.category,
         file: `/uploads/${filename}`,
@@ -226,15 +218,7 @@ exports.posts = async (req, res) => {
 
 exports.submitPost = async (req, res) => {
   try {
-    const texts = req.body.description.split("\r\n");
-    const newTexts = texts
-      .map((text) => {
-        if (text.length === 0) {
-          return "<br /><br />";
-        }
-        return text;
-      })
-      .join("\n");
+    const texts = req.body.description;
     const allow = !!req.body.allowComments;
     let filename = "";
     if (req.files) {
@@ -249,7 +233,7 @@ exports.submitPost = async (req, res) => {
       await Project.create({
         title: req.body.title,
         status: req.body.status,
-        description: newTexts,
+        description: texts,
         allowComment: allow,
         category: req.body.category,
       });
@@ -257,7 +241,7 @@ exports.submitPost = async (req, res) => {
       await Project.create({
         title: req.body.title,
         status: req.body.status,
-        description: newTexts,
+        description: texts,
         allowComment: allow,
         category: req.body.category,
         file: `/uploads/${filename}`,
