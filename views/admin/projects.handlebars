@@ -1,6 +1,6 @@
 <div class="container">
     <div class="alert alert-secondary text-center">
-        <h1>ALL Posts</h1>
+        <h1>ALL Projects</h1>
     </div>
     <table class="table table-bordered">
         <thead class="bg-dark text-center">
@@ -8,6 +8,7 @@
                 <th>No</th>
                 <th>Title</th>
                 <th>Status</th>
+                <th>Category</th>
                 <th>Comment Permission</th>
                 <th>Actions</th>
             </tr>
@@ -18,10 +19,11 @@
                 <td>{{@index}}</td>
                 <td>{{title}}</td>
                 <td>{{status}}</td>
+                <td>{{category.title}}</td>
                 <td>{{allowComment}}</td>
                 <td class="d-flex">
-                    <a href="/admin/posts/edit/{{_id}}" class="btn btn-sm btn-warning">Edit Post</a>
-                    <form action="/admin/posts/delete/{{_id}}?newMethod=DELETE" method="POST">
+                    <a href="/admin/projects/edit/{{_id}}" class="btn btn-sm btn-warning">Edit Post</a>
+                    <form action="/admin/projects/delete/{{_id}}?newMethod=DELETE" method="POST">
                         <button class="btn btn-sm btn-danger" type="submit">Delete Post</button>
                     </form>
                 </td>

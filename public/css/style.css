@@ -125,7 +125,6 @@ nav {
   background-color: var(--light-blue);
   opacity: 1;
   transition: all 0.5s;
-  /* transform-origin: 2px 1px; */
 }
 
 .hamburger-menu.open .menu-line-mid {
@@ -142,6 +141,7 @@ nav {
 
 /* Overlay for mobile phone */
 .overlay {
+  z-index: 10;
   position: fixed;
   top: 15vh;
   left: 0;
@@ -166,19 +166,21 @@ nav {
 
 .menu-list {
   width: 80%;
-  height: 50%;
+  height: 60%;
   background-color: var(--dark-grey);
-  margin-top: 1em;
   transform: scale(0.5) translate(-100%, -50%);
-  transition: transform 1s;
+  transition: transform 0.5s ease-in-out;
+  display: grid;
+  grid-template-columns: 1fr;
 }
 
 .menu-list .menu-list-item {
   border-bottom: 2px solid var(--light-grey);
   color: var(--light-grey);
   text-align: center;
-  padding: 1.15em;
-  margin: 0.2em 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-transform: uppercase;
 }
 .menu-list .menu-list-item:last-child {
@@ -191,6 +193,48 @@ nav {
 
 .overlay.open-menu .menu-list {
   transform: scale(1) translate(0, 0);
+}
+
+.dropdown-mini {
+  display: grid;
+  flex-direction: column;
+}
+
+.dropdown-mini > * {
+  margin: 0.2em 0;
+}
+
+.dropdown-mini > *:first-child {
+  align-self: stretch;
+}
+
+.dropdown-mini p {
+  cursor: pointer !important;
+}
+
+.dropdown-mini > *:last-child {
+  transform: translateX(-200%);
+  opacity: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  transition: all 0.7s ease-in-out;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown-mini > *:last-child > * {
+  text-decoration: none;
+  color: var(--light-grey);
+}
+
+.dropdown-mini > *:last-child.open-mini {
+  padding: 0.4em 0;
+  border-top: 2px dotted var(--light-grey);
+  height: auto;
+  transform: translateX(0);
+  opacity: 1;
 }
 
 /* FOOTER */
@@ -241,6 +285,8 @@ footer .footer-right {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  color: var(--dark-blue);
   font-size: 1.3rem;
+}
+footer .footer-right > * {
+  color: var(--dark-blue);
 }

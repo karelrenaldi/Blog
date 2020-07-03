@@ -1,0 +1,32 @@
+[
+  '[Unit Kegiatan Mahasiswa]',
+  'Alasan kenapa UKM di ITB sampai ada 100-an lebih adalah 
+  sebagai wadah mahasiswa berorganisasi sembari berkuliah, katanya. 
+  Ya, karena soft skill itu memang penting, kan. Sekedar mengandalkan 
+  kuliah tidak akan pernah cukup untuk mengasah kemampuan tersebut. 
+  Idealnya seperti itu.',
+  '',
+  'Ternyata, eh, ternyata lagi. Unit itu ternyata awal mulai dari trend 
+  kaderisasi di kampus ini. Mengapa aku mengatakan demikian? Karena, berbeda 
+  dengan kaderisasi terpusat awal seperti OSKM dan panitia pada acara-acara ITB, 
+  semua mahasiswa yang mendaftarkan diri dalam sebuah unit wajib hukumnya untuk 
+  mengikuti kaderisasi unit tersebut. Belum lagi kalau ternyata mahasiswa ini ‘terjebak’ 
+  dalam kaderisasi unit agama (bedakan dengan unit keagamaan seperti GAMAIS, KMK, KMB, PMK, dan KMH). 
+  Sehingga kita pun tidak jarang melihat mahasiswa TPB dan mahasiswa jurusan sibuk dengan kaderisasi. 
+  Entah sebagai peserta aktif maupun pasif.',
+  '',
+  '[[Himpunan]]',
+  'Sesungguhnya aku pribadi belum bisa mengevaluasi aspek ini secara keseluruhan. Bagaimana bisa coba. 
+   Sebagai seseorang yang baru dilantik sebagai anggota biasa beberapa minggu lalu, apa yang dapat ku 
+   katakan tentang himpunan itu sendiri? Di sisi lain, aku merasa kesibukan himpunan itu perlu disinggung di sini.',
+  '',
+  '[[Himpunan]]',
+  '',
+  'Sesungguhnya aku pribadi <belum> bisa mengevaluasi aspek ini secara keseluruhan. Bagaimana bisa coba. Sebagai seseorang yang baru dilantik sebagai anggota biasa beberapa minggu lalu, apa yang dapat ku katakan tentang himpunan itu sendiri? Di sisi lain, aku merasa kesibukan himpunan itu perlu 
+disinggung di sini.'
+]
+
+kmitb@itb.com
+adminkmitb
+
+// solusi gunain cara awal tapi kalau <> ganti dulu pake regex dan pake logika tadi

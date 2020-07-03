@@ -1,4 +1,9 @@
 /*=================LOGIN============== */
+
+.login-header {
+  background-color: var(--dark-grey);
+}
+
 .login .password,
 .login .email {
   display: flex;
@@ -8,23 +13,20 @@
 
 .login .password label,
 .login .email label {
-  margin-bottom: 0.5em;
+  margin-bottom: 0.1em;
+  color: var(--dark-grey);
 }
 
 .login {
-  width: 70%;
-}
-
-.login-form {
-  border-bottom-left-radius: 0px;
-  border-bottom-right-radius: 0px;
-  padding-bottom: 0.3em;
+  width: 25em;
+  margin: 0 auto 0;
+  box-shadow: 0px 15px 30px -14px rgba(0, 0, 0, 0.75);
 }
 
 .login-footer {
-  background-color: var(--dark-blue);
-  border-bottom-left-radius: 3px;
-  border-bottom-right-radius: 3px;
+  background-color: var(--dark-grey);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
   padding: 0.3em 0 0.7em;
   display: flex;
   flex-direction: column;
@@ -35,5 +37,26 @@
   text-decoration: none;
   color: var(--light-grey);
   font-size: 1rem;
-  border-bottom: 3px solid var(--black);
+  padding: 0.1em 0;
+}
+
+.login-form > * {
+  display: grid;
+  padding: 1em;
+}
+
+.email input,
+.password input,
+.firstName input,
+.lastName input {
+  border-radius: 4em;
+  padding: 1.3em;
+  font-size: 0.7rem;
+  background-color: var(--dark-grey);
+  border: 2px solid #f6f6f670;
+}
+
+.login-form {
+  background-color: var(--light-grey);
+  border-radius: 0;
 }

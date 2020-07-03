@@ -1,8 +1,8 @@
 <main>
     <div class="spesific-post">
         <div class="back-to-home">
-            <a href="/allPosts">
-                < BACK TO ALL POSTS</a>
+            <a href="/allProjets">
+                < BACK TO ALL PROJECTS</a>
         </div>
         <div class="spesific-post-content">
             <div class="header-content">
@@ -30,7 +30,7 @@
             <div class="comment">
                 <h5 class="comment-header">Leave a Comment:</h5>
                 <div class="comment-body">
-                    <form action="/post/{{post._id}}" method="POST">
+                    <form action="/project/{{post._id}}" method="POST">
                         <div class="form-group">
                             <textarea class="form-control" rows="3" name="comment_body"></textarea>
                             <input type="hidden" name="id" value="{{post._id}}" />

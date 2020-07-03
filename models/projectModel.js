@@ -21,15 +21,11 @@ const ProjectSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
-  category: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Category",
-  },
   // Every Post have comment more than 1
   comments: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Comment",
+      ref: "Comment2",
     },
   ],
   allowComment: {
@@ -42,5 +38,5 @@ const ProjectSchema = new mongoose.Schema({
   },
 });
 
-const Project = mongoose.model("Post", ProjectSchema);
+const Project = mongoose.model("Project", ProjectSchema);
 module.exports = Project;

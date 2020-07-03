@@ -1,8 +1,8 @@
 <div class="create-form">
-    <h1>Create New Projects</h1>
+    <h1>Create New Posts</h1>
     <div class="row p-4">
         <div class="col-md-10 form">
-            <form action="/admin/projects/create" method="POST" enctype="multipart/form-data">
+            <form action="/admin/posts/create" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="title">Blog Title</label>
                     <input type="text" class="form-control" name="title" id="title" placeholder="Write Your Blog Title"
@@ -24,16 +24,6 @@
                     </select>
                 </div>
 
-                <div class="form-group">
-                    <label for="category">Category</label>
-                    <select name="category" id="category" class="form-control" required>
-                        <option value="" disabled selected>Select your Category</option>
-                        {{#each categories}}
-                        <option value={{_id}}>{{title}}</option>
-                        {{/each}}
-                    </select>
-                </div>
-
                 <div class="form-check ml-3">
                     <label for="allowComments">
                         <input type="checkbox" name="allowComments" id="allowComments" class="form-check-input" checked>
@@ -47,7 +37,7 @@
                         rows="10"></textarea>
                 </div>
 
-                <button class="btn btn-outline-success btn-lg" type="submit">Create Projects</button>
+                <button class="btn btn-outline-success btn-lg" type="submit">Create Posts</button>
             </form>
         </div>
     </div>

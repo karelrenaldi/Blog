@@ -1,6 +1,11 @@
 <main>
     <div class="posts">
-        <h1 class="posts-category">All Posts</h1>
+        {{#if category}}
+        <h1 class="posts-category">{{category}}</h1>
+        {{else}}
+        <h1 class="posts-category">All Projects</h1>
+        {{/if}}
+
         {{#each posts}}
         <div class="post">
             <div class="head-post">
@@ -29,8 +34,8 @@
                     <p class="preview">
                         {{preview description}}
                     </p>
-                    <p class="category">#Post</p>
-                    <a href="/post/{{_id}}" class="read-more">Read More =></a>
+                    <p class="category">#{{category.title}}</p>
+                    <a href="/project/{{_id}}" class="read-more">Read More =></a>
                 </div>
             </div>
         </div>

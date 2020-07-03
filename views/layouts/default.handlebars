@@ -1,21 +1,12 @@
 {{> default/header}}
 
 <body>
-    <!-- Navigation -->
     {{> default/top-navigation}}
-    <!-- Page Content & Container-->
-    {{!-- <div class="container"> --}}
-    {{!-- this content get from route --}}
-    {{!-- {{> admin/messages}} --}}
+    {{> admin/messages}}
     {{{ body }}}
-    {{!-- </div> --}}
-    <!-- Footer -->
     {{> default/footer}}
-
-    <!-- Bootstrap core JavaScript -->
     <script src="/js/message.js"></script>
     <script src="/js/default.js"></script>
-
 </body>
 
 </html>

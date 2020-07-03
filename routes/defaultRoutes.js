@@ -11,6 +11,9 @@ const {
   logout,
   submitComment,
   allProjects,
+  allPosts,
+  post,
+  submitComment2,
 } = require("../controllers/defaultController");
 
 const router = express.Router();
@@ -31,20 +34,12 @@ router.all("/*", (req, res, next) => {
 
 router.route("/").get(index);
 router.route("/allProjets").get(allProjects);
-// Defining Local Strategy
-router.route("/login").get(checkLogin, loginGet).post(
-  //todo
-  // passport.authenticate("local", {
-  //   successRedirect: "/admin",
-  //   failureRedirect: "/login",
-  //   failureFlash: true,
-  //   successFlash: true,
-  //   session: true,
-  // }),
-  loginPost
-);
+router.route("/login").get(checkLogin, loginGet).post(loginPost);
 router.route("/logout").get(logout);
-router.route("/register").get(registerGet).post(registerPost);
+router.route("/register").get(checkLogin, registerGet).post(registerPost);
 router.route("/project/:id").get(project).post(submitComment);
+
+router.route("/allPosts").get(allPosts);
+router.route("/post/:id").get(post).post(submitComment2);
 
 module.exports = router;

@@ -6,17 +6,9 @@ const flash = require("connect-flash");
 const session = require("express-session");
 const methodOverride = require("method-override");
 const fileUpload = require("express-fileupload");
-// const Handlebars = require("https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js");
-// const Handlebars = require("express-handlebars");
-//todo
-// const passport = require("passport");
 const { selectOption, preview } = require("./config/helper");
 
 const app = express();
-
-// Passport Config
-//todo
-// require("./config/passport")(passport);
 
 /* File Upload Middleware*/
 app.use(fileUpload());
@@ -25,10 +17,6 @@ app.use(fileUpload());
 const globalVariables = (req, res, next) => {
   res.locals.success_message = req.flash("success-message");
   res.locals.failed_message = req.flash("failed-message");
-  // res.locals.admin = false;
-  // res.locals.login = false;
-  //TODO
-  // res.locals.user = req.user || null;
   next();
 };
 
@@ -63,10 +51,6 @@ app.use(
   })
 );
 app.use(flash());
-
-// TODO Passport middleware
-// app.use(passport.initialize());
-// app.use(passport.session());
 
 /* Global Variables */
 app.use(globalVariables);

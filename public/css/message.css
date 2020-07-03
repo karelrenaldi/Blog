@@ -3,16 +3,20 @@
   padding: 1em 1.8em;
   margin-bottom: 1em;
   border-radius: 0.3rem;
-  color: #f5f5f4;
+  color: var(--dark-grey);
   display: flex;
   justify-content: space-between;
   opacity: 1;
   transition: all 1s;
+  position: absolute;
+  left: 1em;
+  right: 1em;
+  top: 1em;
 }
 
 .message-box.succes {
-  background-color: #50c878;
-  border: 2px solid #57a44d;
+  background-color: var(--light-blue);
+  border: 2px solid var(--dark-grey);
 }
 
 .message-box.failed {

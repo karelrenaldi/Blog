@@ -1,10 +1,17 @@
 /*======Main Register=======*/
-.register,
-.login {
-  width: 80%;
+.register {
+  width: 60%;
   margin: 0 auto 0;
-  border-radius: 3px;
   box-shadow: 0px 15px 30px -14px rgba(0, 0, 0, 0.75);
+  margin-bottom: 3em;
+}
+
+.firstName,
+.lastName,
+.password-first-input,
+.password-second-input {
+  display: flex;
+  flex-direction: column;
 }
 
 .register-header,
@@ -13,44 +20,30 @@
   text-align: center;
   padding: 1em 0;
   text-transform: uppercase;
-  font-family: "Oswald", sans-serif;
+  font-family: "Poppins", sans-serif;
   letter-spacing: 1.4px;
   font-weight: 500;
-  border-top-left-radius: 3px;
-  border-top-right-radius: 3px;
   color: var(--light-grey);
 }
 
 .register-form,
 .login-form {
-  background-color: var(--dark-blue);
-  border-bottom-left-radius: 3px;
-  border-bottom-right-radius: 3px;
+  background-color: var(--light-grey);
   padding: 0.9em;
 }
 
-.register-form > *,
-.login-form > * {
-  padding: 1em;
+.register-form > * {
+  padding: 1.5em 1em;
   display: grid;
 }
 
 .form-input {
   border: none;
-  padding: 1em;
-  border-radius: 5px;
-  background-color: var(--dark-grey);
   color: var(--light-grey);
-  font-family: "Oswald", sans-serif;
+  font-family: "Poppins", sans-serif;
   letter-spacing: 1.1px;
   outline: none;
   font-weight: 500;
-}
-
-.form-input::placeholder {
-  font-family: "Oswald", sans-serif;
-  font-weight: 500;
-  font-size: 1rem;
 }
 
 .name,
@@ -66,11 +59,15 @@
   padding-top: 0;
 }
 
+.submit-register {
+  padding: 1em;
+}
+
 .submit-btn {
   border: none;
   background-color: var(--dark-grey);
   margin: 0 auto;
-  border-radius: 10px;
+  border-radius: 1em;
   color: var(--light-grey);
   text-transform: uppercase;
   letter-spacing: 1.2px;

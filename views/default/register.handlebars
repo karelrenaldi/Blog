@@ -6,54 +6,6 @@
 </div>
 {{/each}}
 {{/if}}
-{{!-- <div class="card card-register mx-auto my-5">
-    <div class="card-header">Register an Account</div>
-    <div class="card-body">
-        <form action="/register" method="post">
-            <div class="form-group">
-                <div class="form-row">
-                    <div class="col-md-6">
-                        <label for="exampleInputName">First name</label>
-                        <input name="firstName" class="form-control" id="exampleInputName" type="text"
-                            aria-describedby="nameHelp" placeholder="Enter first name" required>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="exampleInputLastName">Last name</label>
-                        <input name="lastName" class="form-control" id="exampleInputLastName" type="text"
-                            aria-describedby="nameHelp" placeholder="Enter last name" required>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="exampleInputEmail1">Email address</label>
-                <input name="email" class="form-control" id="exampleInputEmail1" type="email"
-                    aria-describedby="emailHelp" placeholder="Enter email" required>
-            </div>
-            <div class="form-group">
-                <div class="form-row">
-                    <div class="col-md-6">
-                        <label for="exampleInputPassword1">Password <span style="opacity: .7;">(Minimum 8
-                                Characters)</span></label>
-                        <input name="password" class="form-control" id="exampleInputPassword1" type="password"
-                            placeholder="Password" required>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="exampleConfirmPassword">Confirm password <span style="opacity: .7;">(Minimum 8
-                                Characters)</span></label>
-                        <input name="passwordConfirm" class="form-control" id="exampleConfirmPassword" type="password"
-                            placeholder="Confirm password" required>
-                    </div>
-                </div>
-            </div>
-            <button type="submit" class="btn btn-primary btn-block">Register</button>
-        </form>
-        <div class="text-center">
-            <a class="d-block small mt-3" href="/login">Login Page</a>
-            <a class="d-block small" href="forgot-password.html">Forgot Password?</a>
-            <a class="d-block small" href="/">Home Page?</a>
-        </div>
-    </div>
-</div> --}}
 
 <main>
     <div class="register">
@@ -62,29 +14,42 @@
             <form action="/register" method="post" class="register-form">
                 <!-- NAME -->
                 <div class="name">
-                    <input name="firstName" class="form-input" id="firstName" type="text" aria-describedby="nameHelp"
-                        placeholder="First Name" required autocomplete="off" />
+                    <div class="firstName">
+                        <label for="firstName">First Name</label>
+                        <input name="firstName" class="form-input" id="firstName" type="text"
+                            aria-describedby="nameHelp" required autocomplete="off" />
+                    </div>
+                    <div class="lastName">
+                        <label for="lastName">Last Name</label>
+                        <input name="lastName" class="form-input" id="lastName" type="text" aria-describedby="nameHelp"
+                            required autocomplete="off" />
+                    </div>
 
-                    <input name="lastName" class="form-input" id="lastName" type="text" aria-describedby="nameHelp"
-                        placeholder="Last Name" required autocomplete="off" />
                 </div>
 
                 <!-- Email -->
                 <div class="email">
-                    <input name="email" class="form-input" id="email" type="email" aria-describedby="emailHelp"
-                        placeholder="Enter email" required autocomplete="off" />
+                    <label for="email">Email</label>
+                    <input name="email" class="form-input" id="email" type="email" aria-describedby="emailHelp" required
+                        autocomplete="off" />
                 </div>
 
                 <!-- Password -->
                 <div class="password">
-                    <input name="password" class="form-input" id="password" type="password" placeholder="Password"
-                        required />
+                    <div class="password-first-input">
+                        <label for="password">Password</label>
+                        <input name="password" class="form-input" id="password" type="password" required />
+                    </div>
+                    <div class="password-second-input">
+                        <label for="passwordConfirm">Password Confirm</label>
+                        <input name="passwordConfirm" class="form-input" id="passwordConfirm" type="password"
+                            required />
 
-                    <input name="passwordConfirm" class="form-input" id="passwordConfirm" type="password"
-                        placeholder="Confirm password" required />
+                    </div>
+
                 </div>
 
-                <button type="submit" class="submit-btn">Register</button>
+                <button type="submit" class="submit-btn submit-register">Register</button>
             </form>
         </div>
     </div>

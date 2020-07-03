@@ -8,7 +8,6 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  /* border: 1px solid magenta; */
   padding: 1.5em 2.5em 0.5em;
 }
 
