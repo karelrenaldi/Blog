@@ -28,6 +28,10 @@
   border-radius: 8px;
 }
 
+.post .noPost {
+  text-align: center;
+}
+
 .main-post {
   margin: 1em 0;
   display: grid;

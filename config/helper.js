@@ -1,3 +1,18 @@
+const month = [
+  "JAN",
+  "FEB",
+  "MAR",
+  "APR",
+  "MAY",
+  "JUN",
+  "JUL",
+  "AUG",
+  "SEP",
+  "OCT",
+  "NOV",
+  "DES",
+];
+
 exports.selectOption = function (status, options) {
   return options
     .fn(this)
@@ -9,6 +24,14 @@ exports.preview = function (value) {
   return `${value} ...`;
 };
 
+exports.getDate = function (value) {
+  return value.getDate();
+};
+
+exports.getMonth = function (value) {
+  return month[value.getMonth()];
+};
+
 exports.isUserAuthenticated = function (req, res, next) {
   if (global.admin) {
     next();
@@ -17,9 +40,4 @@ exports.isUserAuthenticated = function (req, res, next) {
   } else {
     res.redirect("/login");
   }
-  // if (req.isAuthenticated()) {
-  //   next();
-  // } else {
-  //   res.redirect("/login");
-  // }
 };

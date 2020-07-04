@@ -1,4 +1,4 @@
 node_modules
 frontend/default/**
 database.zip
-database
+database/test/**

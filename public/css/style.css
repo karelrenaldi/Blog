@@ -166,7 +166,7 @@ nav {
 
 .menu-list {
   width: 80%;
-  height: 60%;
+  height: 70%;
   background-color: var(--dark-grey);
   transform: scale(0.5) translate(-100%, -50%);
   transition: transform 0.5s ease-in-out;
@@ -232,9 +232,10 @@ nav {
 .dropdown-mini > *:last-child.open-mini {
   padding: 0.4em 0;
   border-top: 2px dotted var(--light-grey);
-  height: auto;
+  height: 100px;
   transform: translateX(0);
   opacity: 1;
+  overflow-y: scroll;
 }
 
 /* FOOTER */
@@ -247,6 +248,7 @@ footer {
   grid-gap: 0.5em;
   grid-template-columns: 1fr 3fr 1fr;
   background-color: var(--dark-grey);
+  z-index: 2;
 }
 
 .footer-logo {

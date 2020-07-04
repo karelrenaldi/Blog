@@ -8,12 +8,9 @@
                 <p class="nav-link">Projets ></p>
                 <div class="">
                     <a class="nav-link" href="/allProjets">All Projets</a>
-                    <a class="nav-link" href="/allProjets?category=Pengabdian Masyarakat">Pengabdian Masyarakat</a>
-                    <a class="nav-link" href="/allProjets?category=Seminar-Pengembangan Diri">Seminar & Pengembangan
-                        Diri</a>
-                    <a class="nav-link" href="/allProjets?category=Proyek-Acara">Proyek & Acara</a>
-                    <a class="nav-link" href="/allProjets?category=Kompetisi">Kompetisi</a>
-                    <a class="nav-link" href="/allProjets?category=Lainnya">Lainnya</a>
+                    {{#each allCategory}}
+                    <a class="nav-link" href="/allProjets?category={{query}}">{{title}}</a>
+                    {{/each}}
                 </div>
             </li>
             <li class="menu-list-item">
@@ -64,12 +61,9 @@
                     <p class="nav-link">Projets</p>
                     <div class="dropdown-menu dropdown-menu-large">
                         <a class="nav-link" href="/allProjets">All Projets</a>
-                        <a class="nav-link" href="/allProjets?category=Pengabdian Masyarakat">Pengabdian Masyarakat</a>
-                        <a class="nav-link" href="/allProjets?category=Seminar-Pengembangan Diri">Seminar & Pengembangan
-                            Diri</a>
-                        <a class="nav-link" href="/allProjets?category=Proyek-Acara">Proyek & Acara</a>
-                        <a class="nav-link" href="/allProjets?category=Kompetisi">Kompetisi</a>
-                        <a class="nav-link" href="/allProjets?category=Lainnya">Lainnya</a>
+                        {{#each allCategory}}
+                        <a class="nav-link" href="/allProjets?category={{query}}">{{title}}</a>
+                        {{/each}}
                     </div>
                 </li>
                 <li class="nav-item">

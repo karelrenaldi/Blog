@@ -6,14 +6,31 @@ const User = require("../models/userModel");
 const Comment = require("../models/commentModel");
 const Project = require("../models/projectModel");
 const Comment2 = require("../models/comment2Model");
+const Category = require("../models/categoryModel");
 
-exports.index = (req, res) => {
+const getAllCategory = async function(){
+  let allCategory = await Category.find().lean();
+  allCategory = allCategory.map( category => {
+    category.title.includes(" & ")
+      ? category.query = category.title.replace(" & ","-")
+      : category.query = category.title;
+    return category;
+  })
+  return allCategory
+}
+
+exports.index = async(req, res) => {
+  const allCategory = await getAllCategory();
+  allCategory.map( (category, index) => {
+    category["index"] = index + 1;
+  });
   const { admin, login } = global;
-  res.render("default/index", { admin: admin, login: login });
+  res.render("default/index", { admin: admin, login: login, allCategory: allCategory });
 };
 
 exports.allProjects = async (req, res) => {
   try {
+    const allCategory = await getAllCategory();
     let { category } = req.query;
     const { admin, login } = global;
     const all = _.isEmpty(category);
@@ -24,6 +41,8 @@ exports.allProjects = async (req, res) => {
         posts: dataClone,
         admin: admin,
         login: login,
+        allCategory: allCategory,
+        available: true,
       });
     } else {
       category = category.includes("-")
@@ -40,9 +59,14 @@ exports.allProjects = async (req, res) => {
             admin: admin,
             login: login,
             category: category,
+            allCategory: allCategory,
+            available: true,
           });
         } else {
-          res.send("NOT FOUND");
+          res.render("default/projects", {
+            allCategory: allCategory,
+            available: false,
+          });
         }
       }
     }
@@ -54,17 +78,15 @@ exports.allProjects = async (req, res) => {
   }
 };
 
-exports.loginGet = (req, res) => {
-  res.render("default/login");
+exports.loginGet = async (req, res) => {
+  const allCategory = await getAllCategory();
+  res.render("default/login", { allCategory: allCategory });
 };
 
 exports.loginPost = async (req, res) => {
-  // Authetication
   const { email, password } = req.body;
   const invalidMessage = "Invalid email or password";
   const userData = await User.findOne({ email: email }).lean();
-  //todo
-  // const dataPost = await Post.find().lean();
   const admin = ["karelrenaldi8@gmail.com", "kmitb@itb.com"];
   if (!userData) {
     global.login = false;
@@ -98,8 +120,9 @@ exports.loginPost = async (req, res) => {
   }
 };
 
-exports.registerGet = (req, res) => {
-  res.render("default/register");
+exports.registerGet = async (req, res) => {
+  const allCategory = await getAllCategory();
+  res.render("default/register", { allCategory: allCategory });
 };
 
 exports.registerPost = async (req, res) => {
@@ -143,14 +166,15 @@ exports.registerPost = async (req, res) => {
 };
 
 exports.project = async (req, res) => {
+  const allCategory = await getAllCategory();
   try {
     const { admin, login } = global;
     const { id } = req.params;
     const post = await Post.findById(id)
       .populate({ path: "comments", populate: { path: "user", model: "User" } })
       .lean();
-    post.description = post.description.replace(/\r?\n/g, '<br />')
-    res.render("default/project", { post: post, admin: admin, login: login });
+    post.description = post.description.replace(/\r?\n/g, '<br />');
+    res.render("default/project", { post: post, admin: admin, login: login , allCategory: allCategory });
   } catch (err) {
     res.status(400).json({
       status: "fail",
@@ -194,6 +218,7 @@ exports.submitComment = (req, res) => {
 
 exports.allPosts = async(req, res) => {
   try {
+    const allCategory = await getAllCategory();
     const { admin, login } = global;
       const dataPost = await Project.find().lean();
       const dataClone = _.cloneDeep(dataPost);
@@ -201,6 +226,7 @@ exports.allPosts = async(req, res) => {
         posts: dataClone,
         admin: admin,
         login: login,
+        allCategory: allCategory,
       });
   } catch (err) {
     res.status(400).json({
@@ -213,13 +239,14 @@ exports.allPosts = async(req, res) => {
 
 exports.post = async(req, res) => {
   try {
+    const allCategory = await getAllCategory();
     const { admin, login } = global;
     const { id } = req.params;
     const post = await Project.findById(id)
       .populate({ path: "comments", populate: { path: "user", model: "User" } })
       .lean();
-    post.description = post.description.replace(/\r?\n/g, '<br />')
-    res.render("default/post", { post: post, admin: admin, login: login });
+    post.description = post.description.replace(/\r?\n/g, '<br />');
+    res.render("default/post", { post: post, admin: admin, login: login, allCategory: allCategory });
   } catch (err) {
     res.status(400).json({
       status: "fail",

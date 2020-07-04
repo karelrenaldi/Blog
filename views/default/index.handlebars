@@ -23,30 +23,14 @@
         </div>
 
         <div class="category">
-            <div class="category1">
-                <p class="category-number">01</p>
-                <h2 class="category-name">Pengabdian Masyarakat</h2>
-            </div>
-            <div class="category2">
-                <p class="category-number">02</p>
-                <h2 class="category-name">Startup & Bisnis</h2>
-            </div>
-            <div class="category3">
-                <p class="category-number">03</p>
-                <h2 class="category-name">Seminar & Pengembangan Diri</h2>
-            </div>
-            <div class="category4">
-                <p class="category-number">04</p>
-                <h2 class="category-name">Proyek & Acara</h2>
-            </div>
-            <div class="category5">
-                <p class="category-number">05</p>
-                <h2 class="category-name">Kompetisi</h2>
-            </div>
-            <div class="category6">
-                <p class="category-number">06</p>
-                <h2 class="category-name">Lainnya</h2>
-            </div>
+            {{#each allCategory}}
+            <a href="/allProjets?category={{query}}">
+                <div class="category-item">
+                    <p class="category-number">{{index}}</p>
+                    <h2 class="category-name">{{title}}</h2>
+                </div>
+            </a>
+            {{/each}}
         </div>
     </div>
 

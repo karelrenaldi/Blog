@@ -6,7 +6,7 @@ const flash = require("connect-flash");
 const session = require("express-session");
 const methodOverride = require("method-override");
 const fileUpload = require("express-fileupload");
-const { selectOption, preview } = require("./config/helper");
+const { selectOption, preview, getDate, getMonth } = require("./config/helper");
 
 const app = express();
 
@@ -31,7 +31,12 @@ app.engine(
   "handlebars",
   hbs({
     defaultLayout: "default",
-    helpers: { select: selectOption, preview: preview },
+    helpers: {
+      select: selectOption,
+      preview: preview,
+      getDate: getDate,
+      getMonth: getMonth,
+    },
   })
 );
 app.set("view engine", "handlebars");

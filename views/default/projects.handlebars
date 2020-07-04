@@ -6,6 +6,7 @@
         <h1 class="posts-category">All Projects</h1>
         {{/if}}
 
+        {{#if available}}
         {{#each posts}}
         <div class="post">
             <div class="head-post">
@@ -19,8 +20,8 @@
             <div class="main-post">
                 <div class="footer-post-title">
                     <div class="calender">
-                        <div class="calender-date">27</div>
-                        <div class="calender-month">JAN</div>
+                        <div class="calender-date">{{getDate creationDate}}</div>
+                        <div class="calender-month">{{getMonth creationDate}}</div>
                     </div>
                     <div class="creator">
                         <div class="creator-logo"></div>
@@ -40,5 +41,10 @@
             </div>
         </div>
         {{/each}}
+        {{else}}
+        <div class="post">
+            <h1 class="noPost"> NO POST YET </h1>
+        </div>
+        {{/if}}
     </div>
 </main>
