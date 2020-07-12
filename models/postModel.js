@@ -40,6 +40,10 @@ const PostSchema = new mongoose.Schema({
     type: String,
     default: "",
   },
+  proposal: {
+    type: String,
+    default: ""
+  }
 });
 
 const Post = mongoose.model("Post", PostSchema);

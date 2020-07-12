@@ -24,33 +24,35 @@ exports.submitProject = async (req, res) => {
   try {
     const texts = req.body.description;
     const allow = !!req.body.allowComments;
-    let filename = "";
+    let coverFilename = "";
+    let pdfFilename = "";
+    const now = new Date().getTime();
     if (req.files) {
-      const file = req.files.fileUpload;
-      filename = file.name;
-      file.mv(`./public/uploads/${filename}`, (err) => {
-        if (err) res.send(err);
+      const cover = req.files.coverUpload;
+      const pdf = req.files.pdfUpload;
+      
+      coverFilename = cover.name;
+      pdfFilename = pdf.name;
+      
+      cover.mv(`./public/uploads/${now}-${coverFilename}}`, (err) => {
+        if (err) return res.send(err);
       });
+      
+      pdf.mv(`./public/proposal/${now}-${pdfFilename}`, (err) => {
+        if (err) return res.send(err);
+      })
     }
 
-    if (filename === "") {
-      await Post.create({
-        title: req.body.title,
-        status: req.body.status,
-        description: texts,
-        allowComment: allow,
-        category: req.body.category,
-      });
-    } else {
-      await Post.create({
-        title: req.body.title,
-        status: req.body.status,
-        description: texts,
-        allowComment: allow,
-        category: req.body.category,
-        file: `/uploads/${filename}`,
-      });
-    }
+    await Post.create({
+      title: req.body.title,
+      status: req.body.status,
+      description: texts,
+      allowComment: allow,
+      category: req.body.category,
+      file: coverFilename === "" ? "" : `/uploads/${now}-${coverFilename}`,
+      proposal: pdfFilename === "" ? "" : `/proposal/${now}-${pdfFilename}`
+    });
+
     req.flash("success-message", "Project Created Successfully");
     res.redirect("/admin/projects");
   } catch (err) {

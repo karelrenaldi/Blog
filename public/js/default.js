@@ -18,7 +18,7 @@ const openDropdownBig = (e) => {
     postBtn.textContent = "x close";
     postBtn.style.color = "tomato";
   }else{
-    postBtn.textContent = "posts";
+    postBtn.textContent = "projects";
     dropdown.classList.remove("open");
     postBtn.style.color = "var(--light-grey)";
   }

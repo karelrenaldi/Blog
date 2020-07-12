@@ -56,7 +56,6 @@ app.use(
   })
 );
 app.use(flash());
-
 /* Global Variables */
 app.use(globalVariables);
 
