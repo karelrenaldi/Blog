@@ -18,20 +18,6 @@
                     </select>
                 </div>
 
-                <div class="form-check ml-3">
-                    {{#if post.allowComment}}
-                    <label for="allowComments">
-                        <input type="checkbox" name="allowComments" id="allowComments" class="form-check-input" checked>
-                        Allow Comments
-                    </label>
-                    {{else}}
-                    <label for="allowComments">
-                        <input type="checkbox" name="allowComments" id="allowComments" class="form-check-input">
-                        Allow Comments
-                    </label>
-                    {{/if}}
-                </div>
-
                 <div class="form-group">
                     <label for="description">Description</label>
                     <textarea name="description" id="description" class="form-control" placeholder="Write Description"

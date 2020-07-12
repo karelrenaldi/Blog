@@ -41,3 +41,7 @@ exports.isUserAuthenticated = function (req, res, next) {
     res.redirect("/login");
   }
 };
+
+exports.time = function (value) {
+  return value.toDateString();
+};

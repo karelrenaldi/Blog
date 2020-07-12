@@ -25,20 +25,17 @@ const PostSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Category",
   },
-  // Every Post have comment more than 1
-  comments: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Comment",
-    },
-  ],
-  allowComment: {
-    type: Boolean,
-    default: false,
-  },
   file: {
     type: String,
     default: "",
+  },
+  pdf: {
+    type: String,
+    default: "",
+  },
+  views: {
+    type: Number,
+    default: 0,
   },
 });
 

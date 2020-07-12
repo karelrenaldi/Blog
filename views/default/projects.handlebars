@@ -35,7 +35,12 @@
                     <p class="preview">
                         {{preview description}}
                     </p>
-                    <p class="category">#{{category.title}}</p>
+                    <p class="category"># {{category.title}}</p>
+                    {{#if views}}
+                    <p class="views"><b># {{views}} Views</b></p>
+                    {{else}}
+                    <p class="views"><b># 0 Views</b></p>
+                    {{/if}}
                     <a href="/project/{{_id}}" class="read-more">Read More =></a>
                 </div>
             </div>

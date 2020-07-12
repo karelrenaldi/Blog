@@ -6,7 +6,13 @@ const flash = require("connect-flash");
 const session = require("express-session");
 const methodOverride = require("method-override");
 const fileUpload = require("express-fileupload");
-const { selectOption, preview, getDate, getMonth } = require("./config/helper");
+const {
+  selectOption,
+  preview,
+  getDate,
+  getMonth,
+  time,
+} = require("./config/helper");
 
 const app = express();
 
@@ -36,6 +42,7 @@ app.engine(
       preview: preview,
       getDate: getDate,
       getMonth: getMonth,
+      time: time,
     },
   })
 );

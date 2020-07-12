@@ -1,8 +1,6 @@
 const Post = require("../models/postModel");
 const Category = require("../models/categoryModel");
-const Comment = require("../models/commentModel");
 const Project = require("../models/projectModel");
-const Comment2 = require("../models/comment2Model");
 
 exports.index = (req, res) => {
   res.render("admin/index");
@@ -23,34 +21,34 @@ exports.projects = async (req, res) => {
 exports.submitProject = async (req, res) => {
   try {
     const texts = req.body.description;
-    const allow = !!req.body.allowComments;
-    let filename = "";
+    const now = new Date().getTime();
+    let pdfFileName = "";
+    let imageFileName = "";
+
     if (req.files) {
-      const file = req.files.fileUpload;
-      filename = file.name;
-      file.mv(`./public/uploads/${filename}`, (err) => {
-        if (err) res.send(err);
+      const fileImage = req.files.imageUpload;
+      const filePdf = req.files.pdfUpload;
+
+      imageFileName = fileImage.name;
+      pdfFileName = filePdf.name;
+
+      fileImage.mv(`./public/uploads/${now}-${imageFileName}`, (err) => {
+        if (err) return res.send(err);
+      });
+      filePdf.mv(`./public/pdf/${now}-${pdfFileName}`, (err) => {
+        if (err) return res.send(err);
       });
     }
 
-    if (filename === "") {
-      await Post.create({
-        title: req.body.title,
-        status: req.body.status,
-        description: texts,
-        allowComment: allow,
-        category: req.body.category,
-      });
-    } else {
-      await Post.create({
-        title: req.body.title,
-        status: req.body.status,
-        description: texts,
-        allowComment: allow,
-        category: req.body.category,
-        file: `/uploads/${filename}`,
-      });
-    }
+    await Post.create({
+      title: req.body.title,
+      status: req.body.status,
+      description: texts,
+      category: req.body.category,
+      file: imageFileName === "" ? "" : `/uploads/${now}-${imageFileName}`,
+      pdf: pdfFileName === "" ? "" : `/pdf/${now}-${pdfFileName}`,
+    });
+
     req.flash("success-message", "Project Created Successfully");
     res.redirect("/admin/projects");
   } catch (err) {
@@ -77,14 +75,12 @@ exports.editMenuProject = async (req, res) => {
 exports.editProject = async (req, res) => {
   try {
     const { id } = req.params;
-    const allow = !!req.body.allowComments;
     await Post.findByIdAndUpdate(
       id,
       {
         title: req.body.title,
         status: req.body.status,
         description: req.body.description,
-        allowComment: allow,
         category: req.body.category,
       },
       {
@@ -197,11 +193,6 @@ exports.deleteCategory = async (req, res) => {
   }
 };
 
-exports.comment = async (req, res) => {
-  const comments = await Comment.find().populate("user").lean();
-  res.render("admin/comments", { comments: comments });
-};
-
 //============POST=================
 
 exports.posts = async (req, res) => {
@@ -219,7 +210,6 @@ exports.posts = async (req, res) => {
 exports.submitPost = async (req, res) => {
   try {
     const texts = req.body.description;
-    const allow = !!req.body.allowComments;
     let filename = "";
     if (req.files) {
       const file = req.files.fileUpload;
@@ -234,7 +224,6 @@ exports.submitPost = async (req, res) => {
         title: req.body.title,
         status: req.body.status,
         description: texts,
-        allowComment: allow,
         category: req.body.category,
       });
     } else {
@@ -242,7 +231,6 @@ exports.submitPost = async (req, res) => {
         title: req.body.title,
         status: req.body.status,
         description: texts,
-        allowComment: allow,
         category: req.body.category,
         file: `/uploads/${filename}`,
       });
@@ -270,14 +258,12 @@ exports.editMenu = async (req, res) => {
 exports.editPost = async (req, res) => {
   try {
     const { id } = req.params;
-    const allow = !!req.body.allowComments;
     await Project.findByIdAndUpdate(
       id,
       {
         title: req.body.title,
         status: req.body.status,
         description: req.body.description,
-        allowComment: allow,
       },
       {
         new: true,
@@ -306,9 +292,4 @@ exports.deletePost = async (req, res) => {
       message: err,
     });
   }
-};
-
-exports.comment2 = async (req, res) => {
-  const comments = await Comment2.find().populate("user").lean();
-  res.render("admin/comments2", { comments: comments });
 };

@@ -9,7 +9,7 @@
                 <th>Title</th>
                 <th>Status</th>
                 <th>Category</th>
-                <th>Comment Permission</th>
+                <th>Views</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -20,7 +20,11 @@
                 <td>{{title}}</td>
                 <td>{{status}}</td>
                 <td>{{category.title}}</td>
-                <td>{{allowComment}}</td>
+                {{#if views}}
+                <td>{{views}}</td>
+                {{else}}
+                <td>0</td>
+                {{/if}}
                 <td class="d-flex">
                     <a href="/admin/projects/edit/{{_id}}" class="btn btn-sm btn-warning">Edit Post</a>
                     <form action="/admin/projects/delete/{{_id}}?newMethod=DELETE" method="POST">

@@ -9,11 +9,9 @@ const {
   registerPost,
   project,
   logout,
-  submitComment,
   allProjects,
   allPosts,
   post,
-  submitComment2,
 } = require("../controllers/defaultController");
 
 const router = express.Router();
@@ -37,9 +35,9 @@ router.route("/allProjets").get(allProjects);
 router.route("/login").get(checkLogin, loginGet).post(loginPost);
 router.route("/logout").get(logout);
 router.route("/register").get(checkLogin, registerGet).post(registerPost);
-router.route("/project/:id").get(project).post(submitComment);
+router.route("/project/:id").get(project);
 
 router.route("/allPosts").get(allPosts);
-router.route("/post/:id").get(post).post(submitComment2);
+router.route("/post/:id").get(post);
 
 module.exports = router;

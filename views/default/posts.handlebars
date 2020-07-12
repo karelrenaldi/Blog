@@ -30,6 +30,11 @@
                         {{preview description}}
                     </p>
                     <p class="category">#Post</p>
+                    {{#if views}}
+                    <p class="views"><b># {{views}} Views</b></p>
+                    {{else}}
+                    <p class="views"><b># 0 Views</b></p>
+                    {{/if}}
                     <a href="/post/{{_id}}" class="read-more">Read More =></a>
                 </div>
             </div>

@@ -21,20 +21,13 @@ const ProjectSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
-  // Every Post have comment more than 1
-  comments: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Comment2",
-    },
-  ],
-  allowComment: {
-    type: Boolean,
-    default: false,
-  },
   file: {
     type: String,
     default: "",
+  },
+  views: {
+    type: Number,
+    default: 0,
   },
 });
 

@@ -8,7 +8,7 @@
                 <th>No</th>
                 <th>Title</th>
                 <th>Status</th>
-                <th>Comment Permission</th>
+                <th>Views</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -18,7 +18,7 @@
                 <td>{{@index}}</td>
                 <td>{{title}}</td>
                 <td>{{status}}</td>
-                <td>{{allowComment}}</td>
+                <td>{{views}}</td>
                 <td class="d-flex">
                     <a href="/admin/posts/edit/{{_id}}" class="btn btn-sm btn-warning">Edit Post</a>
                     <form action="/admin/posts/delete/{{_id}}?newMethod=DELETE" method="POST">

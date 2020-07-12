@@ -3,9 +3,7 @@ const bcrypt = require("bcryptjs");
 const _ = require("lodash");
 const Post = require("../models/postModel");
 const User = require("../models/userModel");
-const Comment = require("../models/commentModel");
 const Project = require("../models/projectModel");
-const Comment2 = require("../models/comment2Model");
 const Category = require("../models/categoryModel");
 
 const getAllCategory = async function(){
@@ -171,10 +169,15 @@ exports.project = async (req, res) => {
     const { admin, login } = global;
     const { id } = req.params;
     const post = await Post.findById(id)
-      .populate({ path: "comments", populate: { path: "user", model: "User" } })
       .lean();
+    const views = post.views ? post.views * 1 + 1 : 1;
+
+    await Post.findByIdAndUpdate(id, {
+      views,  
+    })
+
     post.description = post.description.replace(/\r?\n/g, '<br />');
-    res.render("default/project", { post: post, admin: admin, login: login , allCategory: allCategory });
+    res.render("default/project", { post: post, admin: admin, login: login , allCategory: allCategory, views: views });
   } catch (err) {
     res.status(400).json({
       status: "fail",
@@ -189,31 +192,6 @@ exports.logout = (req, res) => {
   global.id = null;
   req.flash("success-message", "LOGGED OUT");
   res.redirect("/");
-};
-
-exports.submitComment = (req, res) => {
-  const { id, comment_body } = req.body;
-  if (global.login) {
-    Post.findById(id).then((post) => {
-      const newComment = new Comment({
-        user: global.id,
-        body: comment_body,
-      });
-      post.comments.push(newComment);
-      post.save().then(() => {
-        newComment.save().then(() => {
-          req.flash(
-            "success-message",
-            "Your comment was submitted for review."
-          );
-          res.redirect(`/project/${post._id}`);
-        });
-      });
-    });
-  } else {
-    req.flash("failed-message", "Login first to comment");
-    res.redirect("/login");
-  }
 };
 
 exports.allPosts = async(req, res) => {
@@ -243,38 +221,19 @@ exports.post = async(req, res) => {
     const { admin, login } = global;
     const { id } = req.params;
     const post = await Project.findById(id)
-      .populate({ path: "comments", populate: { path: "user", model: "User" } })
       .lean();
+    const views = post.views ? post.views * 1 + 1 : 1;
+  
+    await Project.findByIdAndUpdate(id, {
+      views: views,  
+    })
+
     post.description = post.description.replace(/\r?\n/g, '<br />');
-    res.render("default/post", { post: post, admin: admin, login: login, allCategory: allCategory });
+    res.render("default/post", { post: post, admin: admin, login: login, allCategory: allCategory, views: views });
   } catch (err) {
     res.status(400).json({
       status: "fail",
       message: err,
     });
-  }
-}
-exports.submitComment2 = async(req, res) => {
-  const { id, comment_body } = req.body;
-  if (global.login) {
-    Project.findById(id).then((post) => {
-      const newComment = new Comment2({
-        user: global.id,
-        body: comment_body,
-      });
-      post.comments.push(newComment);
-      post.save().then(() => {
-        newComment.save().then(() => {
-          req.flash(
-            "success-message",
-            "Your comment was submitted for review."
-          );
-          res.redirect(`/post/${post._id}`);
-        });
-      });
-    });
-  } else {
-    req.flash("failed-message", "Login first to comment");
-    res.redirect("/login");
   }
 }

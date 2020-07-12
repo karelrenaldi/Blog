@@ -15,7 +15,8 @@
                     <h1 class="title">
                         {{post.title}}
                     </h1>
-                    <p><span>Created by KM ITB</span></p>
+                    <p><span><b style="color: var(--black);">Created by KM ITB | {{views}} views |
+                                {{time post.creationDate}}</b></span></p>
                 </div>
             </div>
             <div class="main-content">
@@ -24,36 +25,15 @@
                 </p>
             </div>
         </div>
-        <hr />
-        <div class="spesific-post-footer">
-            <!-- Comment section -->
-            <div class="comment">
-                <h5 class="comment-header">Leave a Comment:</h5>
-                <div class="comment-body">
-                    <form action="/project/{{post._id}}" method="POST">
-                        <div class="form-group">
-                            <textarea class="form-control" rows="3" name="comment_body"></textarea>
-                            <input type="hidden" name="id" value="{{post._id}}" />
-                        </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
-                </div>
-            </div>
 
-            <!-- Comment display -->
-            <div class="comments">
-                {{#each post.comments}}
-                {{#if commentPermission}}
-                <div class="comment-display">
-                    <div class="profile"></div>
-                    <div class="comments-body">
-                        <h5>{{user.firstName}} {{user.lastName}}</h5>
-                        <p>{{body}}</p>
-                    </div>
-                </div>
-                {{/if}}
-                {{/each}}
-            </div>
+        <hr />
+
+        <div class="footer-content-button">
+            {{#if post.pdf}}
+            <a href="{{post.pdf}}" target="_blank" class="pdfButton">SHOW PDF</a>
+            {{/if}}
+            <a href="/contact" target="_blank" class="kriksar">Kritik & Saran</a>
         </div>
+
     </div>
 </main>
