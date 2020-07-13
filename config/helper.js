@@ -33,10 +33,9 @@ exports.getMonth = function (value) {
 };
 
 exports.isUserAuthenticated = function (req, res, next) {
-  if (global.admin) {
+  console.log(req.session);
+  if (req.session.login) {
     next();
-  } else if (global.login) {
-    res.redirect("/");
   } else {
     res.redirect("/login");
   }

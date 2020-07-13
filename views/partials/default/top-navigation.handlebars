@@ -5,25 +5,18 @@
                 <a class="nav-link" href="/">Home</a>
             </li>
             <li class="menu-list-item dropdown-mini">
-                <p class="nav-link">Projets ></p>
+                <p class="nav-link">Projects ></p>
                 <div class="">
-                    <a class="nav-link" href="/allProjets">All Projets</a>
+                    <a class="nav-link" href="/allProjects">All Projects</a>
                     {{#each allCategory}}
-                    <a class="nav-link" href="/allProjets?category={{query}}">{{title}}</a>
+                    <a class="nav-link" href="/allProjects?category={{query}}">{{title}}</a>
                     {{/each}}
                 </div>
             </li>
             <li class="menu-list-item">
                 <a class="nav-link" href="/allPosts">Posts</a>
             </li>
-            <li class="menu-list-item">
-                <a class="nav-link" href="#">Donation</a>
-            </li>
-            <li class="menu-list-item">
-                <a class="nav-link" href="/contact">Contact</a>
-            </li>
             {{#if login}}
-            {{#if admin}}
             <li class="menu-list-item">
                 <a class="nav-link" href="/admin">Admin</a>
             </li>
@@ -32,15 +25,10 @@
             </li>
             {{else}}
             <li class="menu-list-item">
-                <a class="nav-link" href="/logout">Logout</a>
-            </li>
-            {{/if}}
-            {{else}}
-            <li class="menu-list-item">
-                <a class="nav-link" href="/login">Login</a>
+                <a class="nav-link" href="#">Donation</a>
             </li>
             <li class="menu-list-item">
-                <a class="nav-link" href="/register">Register</a>
+                <a class="nav-link" href="/contact">Contact</a>
             </li>
             {{/if}}
         </ul>
@@ -64,25 +52,18 @@
                 </li>
 
                 <li class="nav-item" id="dropdown">
-                    <p class="nav-link">Projets</p>
+                    <p class="nav-link">Projects</p>
                     <div class="dropdown-menu dropdown-menu-large">
-                        <a class="nav-link" href="/allProjets">All Projects</a>
+                        <a class="nav-link" href="/allProjects">All Projects</a>
                         {{#each allCategory}}
-                        <a class="nav-link" href="/allProjets?category={{query}}">{{title}}</a>
+                        <a class="nav-link" href="/allProjects?category={{query}}">{{title}}</a>
                         {{/each}}
                     </div>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/allPosts">Posts</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Donation</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/contact">Contact</a>
-                </li>
                 {{#if login}}
-                {{#if admin}}
                 <li class="nav-item">
                     <a class="nav-link" href="/admin">Admin</a>
                 </li>
@@ -91,10 +72,11 @@
                 </li>
                 {{else}}
                 <li class="nav-item">
-                    <a class="nav-link" href="/logout">Logout</a>
+                    <a class="nav-link" href="#">Donation</a>
                 </li>
-                {{/if}}
-                {{else}}
+                <li class="nav-item">
+                    <a class="nav-link" href="/contact">Contact</a>
+                </li>
                 {{/if}}
             </ul>
         </div>

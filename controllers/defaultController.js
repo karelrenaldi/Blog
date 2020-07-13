@@ -18,29 +18,28 @@ const getAllCategory = async function(){
 }
 
 exports.index = async(req, res) => {
+  const login = req.session.login;
   const allCategory = await getAllCategory();
   allCategory.map( (category, index) => {
     category["index"] = index + 1;
   });
-  const { admin, login } = global;
-  res.render("default/index", { admin: admin, login: login, allCategory: allCategory });
+  res.render("default/index", { allCategory: allCategory, login: login });
 };
 
 exports.allProjects = async (req, res) => {
   try {
+    const login = req.session.login;
     const allCategory = await getAllCategory();
     let { category } = req.query;
-    const { admin, login } = global;
     const all = _.isEmpty(category);
     if (all) {
       const dataPost = await Post.find().populate("category").lean();
       const dataClone = _.cloneDeep(dataPost);
       res.render("default/projects", {
         posts: dataClone,
-        admin: admin,
-        login: login,
         allCategory: allCategory,
         available: true,
+        login: login
       });
     } else {
       category = category.includes("-")
@@ -54,16 +53,16 @@ exports.allProjects = async (req, res) => {
         if (dataFilter.length > 0) {
           res.render("default/projects", {
             posts: dataFilter,
-            admin: admin,
-            login: login,
             category: category,
             allCategory: allCategory,
             available: true,
+            login: login
           });
         } else {
           res.render("default/projects", {
             allCategory: allCategory,
             available: false,
+            login: login
           });
         }
       }
@@ -86,34 +85,26 @@ exports.loginPost = async (req, res) => {
   const invalidMessage = "Invalid email or password";
   const userData = await User.findOne({ email: email }).lean();
   const admin = ["karelrenaldi8@gmail.com", "kmitb@itb.com"];
+  
   if (!userData) {
-    global.login = false;
-    global.admin = false;
     req.flash("failed-message", invalidMessage);
     res.redirect("/login");
   } else {
     const {firstName, lastName} = userData;
     const isMatchPassword = await bcrypt.compare(password, userData.password);
+
     if (!isMatchPassword) {
-      global.login = false;
-      global.admin = false;
       req.flash("failed-message", invalidMessage);
       res.redirect("/login");
     } else {
-      const isAdmin = admin.includes(userData.email);
-      if (isAdmin) {
-        global.login = true;
-        global.admin = true;
-        global.id = userData._id;
-        req.flash("success-message", `Welcome Back Admin (${firstName} ${lastName}) !`);
-        res.redirect("/");
-      } else {
-        global.login = true;
-        global.admin = false;
-        global.id = userData._id;
-        req.flash("success-message", `Welcome Back (${firstName} ${lastName}) !`);
-        res.redirect("/");
+      req.session.login = {
+        id: userData._id,
+        email,
+        loginDate: new Date().toDateString(), 
       }
+
+      req.flash("success-message", `Welcome Back (${firstName} ${lastName}) !`);
+      res.redirect("/");
     }
   }
 };
@@ -164,9 +155,9 @@ exports.registerPost = async (req, res) => {
 };
 
 exports.project = async (req, res) => {
+  const login = req.session.login;
   const allCategory = await getAllCategory();
   try {
-    const { admin, login } = global;
     const { id } = req.params;
     const post = await Post.findById(id)
       .lean();
@@ -177,7 +168,7 @@ exports.project = async (req, res) => {
     })
 
     post.description = post.description.replace(/\r?\n/g, '<br />');
-    res.render("default/project", { post: post, admin: admin, login: login , allCategory: allCategory, views: views });
+    res.render("default/project", { post: post, allCategory: allCategory, views: views, login: login });
   } catch (err) {
     res.status(400).json({
       status: "fail",
@@ -187,25 +178,26 @@ exports.project = async (req, res) => {
 };
 
 exports.logout = (req, res) => {
-  global.login = false;
-  global.admin = false;
-  global.id = null;
-  req.flash("success-message", "LOGGED OUT");
-  res.redirect("/");
+  req.session.destroy(err => {
+    if(err) {
+      res.redirect("/admin");
+    }
+    res.clearCookie(process.env.SESS_NAME);
+    res.redirect("/");
+  })
 };
 
 exports.allPosts = async(req, res) => {
   try {
+    const login = req.session.login;
     const allCategory = await getAllCategory();
-    const { admin, login } = global;
-      const dataPost = await Project.find().lean();
-      const dataClone = _.cloneDeep(dataPost);
-      res.render("default/posts", {
-        posts: dataClone,
-        admin: admin,
-        login: login,
-        allCategory: allCategory,
-      });
+    const dataPost = await Project.find().lean();
+    const dataClone = _.cloneDeep(dataPost);
+    res.render("default/posts", {
+      posts: dataClone,
+      allCategory: allCategory,
+      login: login,
+    });
   } catch (err) {
     res.status(400).json({
       status: "fail",
@@ -217,8 +209,8 @@ exports.allPosts = async(req, res) => {
 
 exports.post = async(req, res) => {
   try {
+    const login = req.session.login;
     const allCategory = await getAllCategory();
-    const { admin, login } = global;
     const { id } = req.params;
     const post = await Project.findById(id)
       .lean();
@@ -229,7 +221,7 @@ exports.post = async(req, res) => {
     })
 
     post.description = post.description.replace(/\r?\n/g, '<br />');
-    res.render("default/post", { post: post, admin: admin, login: login, allCategory: allCategory, views: views });
+    res.render("default/post", { post: post, allCategory: allCategory, views: views, login: login });
   } catch (err) {
     res.status(400).json({
       status: "fail",

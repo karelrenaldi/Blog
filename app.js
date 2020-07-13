@@ -57,6 +57,7 @@ const adminRoutes = require("./routes/adminRoutes");
 /* Flash and Session */
 app.use(
   session({
+    name: process.env.SESS_NAME,
     secret: "anysecret",
     saveUninitialized: true,
     resave: true,
