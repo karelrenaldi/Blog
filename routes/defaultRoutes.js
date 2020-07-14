@@ -12,6 +12,8 @@ const {
   allProjects,
   allPosts,
   post,
+  newsletter,
+  contact,
 } = require("../controllers/defaultController");
 
 const router = express.Router();
@@ -33,11 +35,12 @@ const canLogout = (req, res, next) => {
 };
 
 router.all("/*", (req, res, next) => {
+  console.log(req.session);
   req.app.locals.layout = "default";
   next();
 });
 
-router.route("/").get(index);
+router.route("/").get(index).post(newsletter);
 router.route("/allProjects").get(allProjects);
 router.route("/login").get(checkLogin, loginGet).post(loginPost);
 router.route("/logout").get(canLogout, logout);
@@ -46,5 +49,7 @@ router.route("/project/:id").get(project);
 
 router.route("/allPosts").get(allPosts);
 router.route("/post/:id").get(post);
+
+router.route("/contact").get(contact);
 
 module.exports = router;

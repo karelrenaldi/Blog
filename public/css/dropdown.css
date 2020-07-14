@@ -20,7 +20,7 @@
   pointer-events: none;
   transition: opacity 0.3s;
   overflow-y: scroll;
-  height: 30em;
+  height: 25em;
 }
 
 .dropdown-menu.open {

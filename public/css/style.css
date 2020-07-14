@@ -14,9 +14,13 @@
   --dark-blue: #45a29e;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   min-height: 100vh;
-  background-color: #f6f6f6;
+  background-color: #ffffff;
   position: relative;
   font-family: "Poppins", sans-serif;
   color: var(--black);

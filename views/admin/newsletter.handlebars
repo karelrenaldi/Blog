@@ -1,0 +1,23 @@
+<div class="container">
+    <h3 class="alert alert-dark p-3 text-dark text-center">All Subscribers </h3>
+
+    <div class="row">
+        <div class="col-6 mx-auto">
+            <table class="table text-center">
+                <thead class="bg-category-head">
+                    <tr>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-category-body category-body">
+                    {{#each emails}}
+                    <tr>
+                        <td>{{email}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+            <button class="btn btn-outline-success btn-md excelBtn">Download Excel</button>
+        </div>
+    </div>
+</div>

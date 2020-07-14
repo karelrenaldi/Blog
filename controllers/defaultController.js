@@ -1,10 +1,12 @@
 /*eslint-disable */
+const randomstring = require("randomstring");
 const bcrypt = require("bcryptjs");
 const _ = require("lodash");
 const Post = require("../models/postModel");
 const User = require("../models/userModel");
 const Project = require("../models/projectModel");
 const Category = require("../models/categoryModel");
+const Newsletter = require("../models/newsletterModel");
 
 const getAllCategory = async function(){
   let allCategory = await Category.find().lean();
@@ -18,7 +20,7 @@ const getAllCategory = async function(){
 }
 
 exports.index = async(req, res) => {
-  const login = req.session.login;
+  const login = req.session.user;
   const allCategory = await getAllCategory();
   allCategory.map( (category, index) => {
     category["index"] = index + 1;
@@ -28,7 +30,7 @@ exports.index = async(req, res) => {
 
 exports.allProjects = async (req, res) => {
   try {
-    const login = req.session.login;
+    const login = req.session.user;
     const allCategory = await getAllCategory();
     let { category } = req.query;
     const all = _.isEmpty(category);
@@ -84,7 +86,6 @@ exports.loginPost = async (req, res) => {
   const { email, password } = req.body;
   const invalidMessage = "Invalid email or password";
   const userData = await User.findOne({ email: email }).lean();
-  const admin = ["karelrenaldi8@gmail.com", "kmitb@itb.com"];
   
   if (!userData) {
     req.flash("failed-message", invalidMessage);
@@ -97,12 +98,14 @@ exports.loginPost = async (req, res) => {
       req.flash("failed-message", invalidMessage);
       res.redirect("/login");
     } else {
-      req.session.login = {
-        id: userData._id,
-        email,
-        loginDate: new Date().toDateString(), 
-      }
+      const sessionString = randomstring.generate(10);
 
+      await User.findByIdAndUpdate(userData._id, { sessionString }).lean();
+      
+      req.session.user = {
+        id: userData._id,
+        sessionString,
+      }
       req.flash("success-message", `Welcome Back (${firstName} ${lastName}) !`);
       res.redirect("/");
     }
@@ -155,7 +158,7 @@ exports.registerPost = async (req, res) => {
 };
 
 exports.project = async (req, res) => {
-  const login = req.session.login;
+  const login = req.session.user;
   const allCategory = await getAllCategory();
   try {
     const { id } = req.params;
@@ -189,7 +192,7 @@ exports.logout = (req, res) => {
 
 exports.allPosts = async(req, res) => {
   try {
-    const login = req.session.login;
+    const login = req.session.user;
     const allCategory = await getAllCategory();
     const dataPost = await Project.find().lean();
     const dataClone = _.cloneDeep(dataPost);
@@ -209,7 +212,7 @@ exports.allPosts = async(req, res) => {
 
 exports.post = async(req, res) => {
   try {
-    const login = req.session.login;
+    const login = req.session.user;
     const allCategory = await getAllCategory();
     const { id } = req.params;
     const post = await Project.findById(id)
@@ -228,4 +231,21 @@ exports.post = async(req, res) => {
       message: err,
     });
   }
+}
+
+exports.newsletter = async(req, res) => {
+  const { email } = req.body;
+  const data = await Newsletter.create({
+    email,
+  });
+  
+  res.status(200).json({
+    status: "success",
+    data,
+  });
+}
+
+exports.contact = async(req, res) => {
+  const allCategory = await getAllCategory();
+  res.render("default/contact", {allCategory: allCategory});
 }

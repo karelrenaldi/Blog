@@ -1,3 +1,5 @@
+const User = require("../models/userModel");
+
 const month = [
   "JAN",
   "FEB",
@@ -32,10 +34,21 @@ exports.getMonth = function (value) {
   return month[value.getMonth()];
 };
 
-exports.isUserAuthenticated = function (req, res, next) {
-  console.log(req.session);
-  if (req.session.login) {
-    next();
+exports.isUserAuthenticated = async function (req, res, next) {
+  const { user } = req.session;
+  if (user) {
+    const { sessionString } = await User.findById(user.id);
+    if (user.sessionString === sessionString) {
+      next();
+    } else {
+      req.session.destroy((err) => {
+        if (err) {
+          res.redirect("/admin");
+        }
+        res.clearCookie(process.env.SESS_NAME);
+        res.redirect("/login");
+      });
+    }
   } else {
     res.redirect("/login");
   }

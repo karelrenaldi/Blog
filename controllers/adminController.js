@@ -1,6 +1,7 @@
 const Post = require("../models/postModel");
 const Category = require("../models/categoryModel");
 const Project = require("../models/projectModel");
+const Newsletter = require("../models/newsletterModel");
 
 exports.index = (req, res) => {
   res.render("admin/index");
@@ -286,6 +287,32 @@ exports.deletePost = async (req, res) => {
     await Project.findByIdAndDelete(id);
     req.flash("success-message", "Posts Deleted Successfully");
     res.redirect("/admin/posts");
+  } catch (err) {
+    res.status(404).json({
+      status: "fail",
+      message: err,
+    });
+  }
+};
+
+exports.newsletter = async (req, res) => {
+  try {
+    const emails = await Newsletter.find().lean();
+    res.render("admin/newsletter", { emails: emails });
+  } catch (err) {
+    res.status(404).json({
+      status: "fail",
+      message: err,
+    });
+  }
+};
+
+exports.newsletterData = async (req, res) => {
+  try {
+    const emails = await Newsletter.find().lean();
+    res.status(200).json({
+      emails,
+    });
   } catch (err) {
     res.status(404).json({
       status: "fail",

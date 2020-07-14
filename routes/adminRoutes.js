@@ -19,6 +19,8 @@ const {
   editMenuProject,
   editProject,
   deleteProject,
+  newsletter,
+  newsletterData,
 } = require("../controllers/adminController");
 
 const router = express.Router();
@@ -44,5 +46,8 @@ router.route("/posts").get(posts);
 router.route("/posts/create").get(createPost).post(submitPost);
 router.route("/posts/edit/:id").get(editMenu).patch(editPost);
 router.route("/posts/delete/:id").delete(deletePost);
+
+router.route("/newsletter").get(newsletter);
+router.route("/newsletterData").get(newsletterData);
 
 module.exports = router;
