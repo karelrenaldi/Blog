@@ -2,9 +2,35 @@ const Post = require("../models/postModel");
 const Category = require("../models/categoryModel");
 const Project = require("../models/projectModel");
 const Newsletter = require("../models/newsletterModel");
+const Leaderboard = require("../models/leaderboard");
 
-exports.index = (req, res) => {
-  res.render("admin/index");
+exports.index = async (req, res) => {
+  // get total view from project
+  let totalViewProject = await Post.aggregate([
+    {
+      $group: {
+        _id: null,
+        totalViews: { $sum: "$views" },
+      },
+    },
+  ]);
+  totalViewProject = totalViewProject[0].totalViews;
+  // get total view from post
+  let totalViewsPost = await Project.aggregate([
+    {
+      $group: {
+        _id: null,
+        totalViews: { $sum: "$views" },
+      },
+    },
+  ]);
+
+  totalViewsPost = totalViewsPost[0].totalViews;
+
+  res.render("admin/index", {
+    viewProject: totalViewProject,
+    viewPost: totalViewsPost,
+  });
 };
 
 exports.projects = async (req, res) => {
@@ -69,7 +95,6 @@ exports.editMenuProject = async (req, res) => {
   const { id } = req.params;
   const dataCategory = await Category.find().lean();
   const dataPost = await Post.findById(id).populate("category").lean();
-  console.log(dataPost);
   res.render("admin/edit", { post: dataPost, categories: dataCategory });
 };
 
@@ -313,6 +338,36 @@ exports.newsletterData = async (req, res) => {
     res.status(200).json({
       emails,
     });
+  } catch (err) {
+    res.status(404).json({
+      status: "fail",
+      message: err,
+    });
+  }
+};
+
+exports.leaderboardForm = async (req, res) => {
+  try {
+    const projects = await Post.find().lean();
+    res.render("admin/leaderboard", { projects });
+  } catch (err) {
+    res.status(404).json({
+      status: "fail",
+      message: err,
+    });
+  }
+};
+
+exports.leaderboardSubmit = async (req, res) => {
+  try {
+    const { name, nominal, proker } = req.body;
+
+    await Leaderboard.create({
+      name,
+      nominal: nominal * 1,
+      proker,
+    });
+    res.redirect("/admin");
   } catch (err) {
     res.status(404).json({
       status: "fail",

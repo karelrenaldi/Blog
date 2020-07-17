@@ -14,6 +14,8 @@ const {
   post,
   newsletter,
   contact,
+  leaderboard,
+  leaderboardData,
 } = require("../controllers/defaultController");
 
 const router = express.Router();
@@ -27,7 +29,7 @@ const checkLogin = (req, res, next) => {
 };
 
 const canLogout = (req, res, next) => {
-  if (req.session.login) {
+  if (req.session.user) {
     next();
   } else {
     res.redirect("/login");
@@ -35,7 +37,6 @@ const canLogout = (req, res, next) => {
 };
 
 router.all("/*", (req, res, next) => {
-  console.log(req.session);
   req.app.locals.layout = "default";
   next();
 });
@@ -51,5 +52,8 @@ router.route("/allPosts").get(allPosts);
 router.route("/post/:id").get(post);
 
 router.route("/contact").get(contact);
+
+router.route("/leaderboard").get(leaderboard);
+router.route("/leaderboardData").get(leaderboardData);
 
 module.exports = router;

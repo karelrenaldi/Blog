@@ -7,6 +7,7 @@ const User = require("../models/userModel");
 const Project = require("../models/projectModel");
 const Category = require("../models/categoryModel");
 const Newsletter = require("../models/newsletterModel");
+const Leaderboard = require("../models/leaderboard");
 
 const getAllCategory = async function(){
   let allCategory = await Category.find().lean();
@@ -20,6 +21,7 @@ const getAllCategory = async function(){
 }
 
 exports.index = async(req, res) => {
+  
   const login = req.session.user;
   const allCategory = await getAllCategory();
   allCategory.map( (category, index) => {
@@ -248,4 +250,74 @@ exports.newsletter = async(req, res) => {
 exports.contact = async(req, res) => {
   const allCategory = await getAllCategory();
   res.render("default/contact", {allCategory: allCategory});
+}
+
+exports.leaderboard = async(req, res) => {
+  res.render("default/leaderboard");
+}
+
+exports.leaderboardData = async(req, res) => {
+  const { tab, page } = req.query;
+  const limit = 2;
+  const skip = (page*1 - 1) * limit;
+
+  if(tab === "recent"){
+    let leaderboardRecent = await Leaderboard.aggregate([
+      {$sort: {date: -1}},
+      {$facet: {
+        recent: [{ $skip: skip}, {$limit: limit}]
+      }
+      },
+    ]);
+    leaderboardRecent = leaderboardRecent[0].recent;
+
+    res.status(200).json({
+      status: "success",
+      data: leaderboardRecent,
+    }); 
+  }else if(tab === "highest"){
+    let leaderboardHighest = await Leaderboard.aggregate([
+      {$sort: {nominal: -1}},
+      {$facet: {
+        highest: [{ $skip: skip }, { $limit: limit }]
+      }}
+    ])
+    leaderboardHighest = leaderboardHighest[0].highest;
+
+    console.log(leaderboardHighest);
+    res.status(200).json({
+      status: "success",
+      data: leaderboardHighest,
+    });
+  }else if(tab === "popular"){
+    let leaderboardPopular = await Leaderboard.aggregate([
+      {
+        $group: {
+          _id: "$proker",
+          totalDonors: { $sum: 1 },
+          nominalTotal: { $sum: "$nominal" },
+        },
+      },
+      { $addFields: { prokerName: "$_id" } },
+      {
+        $project: {
+          _id: 0,
+        },
+      },
+      {
+        $sort: { nominalTotal: -1 },
+      },
+      {$facet: {
+        highest: [{ $skip: skip }, { $limit: limit }]
+      }}
+    ])
+
+    leaderboardPopular = leaderboardPopular[0].highest;
+
+    console.log(leaderboardPopular);
+    res.status(200).json({
+      status: "success",
+      data: leaderboardPopular,
+    });
+  }
 }

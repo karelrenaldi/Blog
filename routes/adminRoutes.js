@@ -21,6 +21,8 @@ const {
   deleteProject,
   newsletter,
   newsletterData,
+  leaderboardForm,
+  leaderboardSubmit,
 } = require("../controllers/adminController");
 
 const router = express.Router();
@@ -49,5 +51,7 @@ router.route("/posts/delete/:id").delete(deletePost);
 
 router.route("/newsletter").get(newsletter);
 router.route("/newsletterData").get(newsletterData);
+
+router.route("/leaderboard").get(leaderboardForm).post(leaderboardSubmit);
 
 module.exports = router;
