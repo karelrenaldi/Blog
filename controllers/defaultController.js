@@ -37,7 +37,7 @@ exports.allProjects = async (req, res) => {
     let { category } = req.query;
     const all = _.isEmpty(category);
     if (all) {
-      const dataPost = await Post.find().populate("category").lean();
+      const dataPost = await Post.find().populate("category").sort({creationDate: -1}).lean();
       const dataClone = _.cloneDeep(dataPost);
       res.render("default/projects", {
         posts: dataClone,
@@ -50,7 +50,7 @@ exports.allProjects = async (req, res) => {
         ? category.replace("-", " & ")
         : category;
       if (category) {
-        const data = await Post.find().populate("category").lean();
+        const data = await Post.find().populate("category").sort({creationDate: -1}).lean();
         const dataFilter = data.filter((dataObj) => {
           return dataObj.category.title === category;
         });
@@ -196,7 +196,7 @@ exports.allPosts = async(req, res) => {
   try {
     const login = req.session.user;
     const allCategory = await getAllCategory();
-    const dataPost = await Project.find().lean();
+    const dataPost = await Project.find().sort({creationDate: -1}).lean();
     const dataClone = _.cloneDeep(dataPost);
     res.render("default/posts", {
       posts: dataClone,
@@ -263,14 +263,14 @@ exports.leaderboardData = async(req, res) => {
 
   if(tab === "recent"){
     let leaderboardRecent = await Leaderboard.aggregate([
-      {$sort: {date: -1}},
+      {$sort: {date: 1}},
       {$facet: {
-        recent: [{ $skip: skip}, {$limit: limit}]
+        recent: [{ $skip: skip}, {$limit: limit}, {$sort: {date: -1}}]
       }
       },
     ]);
     leaderboardRecent = leaderboardRecent[0].recent;
-
+    
     res.status(200).json({
       status: "success",
       data: leaderboardRecent,
@@ -284,7 +284,6 @@ exports.leaderboardData = async(req, res) => {
     ])
     leaderboardHighest = leaderboardHighest[0].highest;
 
-    console.log(leaderboardHighest);
     res.status(200).json({
       status: "success",
       data: leaderboardHighest,

@@ -1,6 +1,4 @@
 /*eslint-disable*/
-// TODO FINISH PAGINATION AND REFACTOR!!!
-
 const leadButtons = document.querySelectorAll(`button[role="tab"]`);
 const tabPanels = Array.from(document.querySelectorAll(`div[role="tabpanel"]`));
 const endpoint = "http://localhost:3000/leaderboardData";
@@ -11,12 +9,14 @@ const tabRecent = document.querySelector(`div[aria-labelledby="recent"]`);
 const tabHighest = document.querySelector(`div[aria-labelledby="highest"]`);
 const tabPopular = document.querySelector(`div[aria-labelledby="popular"`);
 
+const limit = 2;
+
 let page = 1;
 let clickedBtn;
+let nextData, nowData;
 
 function renderData(data, tab) {
   if(tab === "recent" || tab === "highest"){
-    console.log(data);
     const html = data.map(item => 
       `<div class="leaderboard-item">
           <i class="fas fa-user-tie"></i>
@@ -59,6 +59,7 @@ async function handleButtonClick({ currentTarget:button }){
     // Restart Page
     page = 1;
     prevBtn.classList.add("hidden");
+    nextBtn.classList.remove("hidden");
     // CSS Button
     clickedBtn.classList.remove("clicked");
     button.classList.add("clicked");
@@ -71,10 +72,18 @@ async function handleButtonClick({ currentTarget:button }){
         : tabPanel.classList.add("hidden");
     })
 
-    let data = await fetchingData();
-    data = data.data;
+    nowData = await fetchingData();
 
-    renderData(data, clickedBtn.id);
+    const res = await fetch(`${endpoint}?tab=${clickedBtn.id}&page=${page + 1}`);
+    nextData = await res.json();
+
+    nowData = nowData.data;
+    nextData = nextData.data; 
+
+    // check display next button or not
+    nowData.length < limit ? nextBtn.classList.add("hidden") : null; 
+    // render data
+    renderData(nowData, clickedBtn.id);
   }
 }
 
@@ -82,10 +91,18 @@ leadButtons.forEach(async(leadButton) => {
   if(leadButton.classList.contains("clicked")){
     clickedBtn = leadButton;
 
-    let data = await fetchingData();
-    data = data.data;
+    nowData = await fetchingData();
 
-    renderData(data, clickedBtn.id);
+    const res = await fetch(`${endpoint}?tab=${clickedBtn.id}&page=${page + 1}`);
+    nextData = await res.json();
+
+    nowData = nowData.data;
+    nextData = nextData.data; 
+
+    // check display next button or not
+    nowData.length < limit ? nextBtn.classList.add("hidden") : null; 
+    // render data
+    renderData(nowData, clickedBtn.id);
   }
 
   leadButton.addEventListener("click", handleButtonClick);
@@ -94,18 +111,36 @@ leadButtons.forEach(async(leadButton) => {
 nextBtn.addEventListener("click", async() => {
   page === 1 ? prevBtn.classList.remove("hidden") : null;
   page += 1;
-  
-  let data = await fetchingData();
-  data = data.data;
- 
-  renderData(data, clickedBtn.id);
+
+  nowData = nextData;
+
+  const res = await fetch(`${endpoint}?tab=${clickedBtn.id}&page=${page + 1}`);
+  nextData = await res.json();
+
+  nextData = nextData.data;
+
+  const lastPage = nextData.length === 0 ? true : false;
+
+  // If last page remove next button
+  renderData(nowData, clickedBtn.id);
+  lastPage ? nextBtn.classList.add("hidden") : null;
 })
 
 prevBtn.addEventListener("click", async() => {
   page === 2 ? prevBtn.classList.add("hidden") : null;
   page = (page === 1) ? 1 : page - 1 ;
-  let data = await fetchingData();
-  data = data.data;
 
-  renderData(data, clickedBtn.id);
+  const lastPage = nextData.length === 0 ? true : false;
+
+  nextData = nowData;
+
+  const res = await fetch(`${endpoint}?tab=${clickedBtn.id}&page=${page}`);
+  nowData = await res.json();
+
+  nowData = nowData.data;
+
+
+  // If last page add next button
+  renderData(nowData, clickedBtn.id);
+  lastPage ? nextBtn.classList.remove("hidden") : null;
 })
