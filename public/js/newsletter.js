@@ -15,5 +15,4 @@ newsButton.addEventListener("click", async(e) => {
   });
   newsBody.innerHTML = '<h2 style="padding: 2em 0">Thank You For Subscribe</h2>';
   newsEmail.value = "";
-  console.log(pages);
 })

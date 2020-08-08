@@ -1,7 +1,7 @@
 /*eslint-disable*/
 const leadButtons = document.querySelectorAll(`button[role="tab"]`);
 const tabPanels = Array.from(document.querySelectorAll(`div[role="tabpanel"]`));
-const endpoint = "http://localhost:3000/leaderboardData";
+const endpoint = "/leaderboardData";
 const prevBtn = document.querySelector(".previous-button");
 const nextBtn = document.querySelector(".next-button");
 
@@ -9,7 +9,7 @@ const tabRecent = document.querySelector(`div[aria-labelledby="recent"]`);
 const tabHighest = document.querySelector(`div[aria-labelledby="highest"]`);
 const tabPopular = document.querySelector(`div[aria-labelledby="popular"`);
 
-const limit = 2;
+const limit = 6;
 
 let page = 1;
 let clickedBtn;
@@ -19,7 +19,7 @@ function renderData(data, tab) {
   if(tab === "recent" || tab === "highest"){
     const html = data.map(item => 
       `<div class="leaderboard-item">
-          <i class="fas fa-user-tie"></i>
+          <img src="https://img.icons8.com/ios-filled/50/000000/user-group-man-man.png"/>
           <div class="leaderboard-item-description">
               <h2>${item.name}</h2>
               <p>Rp. ${item.nominal}</p>
@@ -32,7 +32,7 @@ function renderData(data, tab) {
   }else if(tab === "popular"){
     const html = data.map(item => `
     <div class="leaderboard-item">
-        <i class="fas fa-user-tie"></i>
+        <img src="https://img.icons8.com/ios-filled/50/000000/user-group-man-man.png"/>
         <div class="leaderboard-item-description">
           <h2>${item.prokerName}</h2>
           <p>Total Donatur: ${item.totalDonors}</p>

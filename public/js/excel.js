@@ -1,5 +1,5 @@
 /*eslint-disable */
-const endpoint = "http://localhost:3000/admin/newsletterData";
+const endpoint = "/admin/newsletterData";
 const excelBtn = document.querySelector(".excelBtn");
 
 const objectToCsv = function(data) {

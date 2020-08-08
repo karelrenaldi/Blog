@@ -8,48 +8,44 @@
 {{/if}}
 
 <main>
-    <div class="register">
-        <div class="register-header">Register an Account</div>
-        <div class="register-body">
-            <form action="/register" method="post" class="register-form">
-                <!-- NAME -->
-                <div class="name">
-                    <div class="firstName">
-                        <label for="firstName">First Name</label>
-                        <input name="firstName" class="form-input" id="firstName" type="text"
-                            aria-describedby="nameHelp" required autocomplete="off" />
-                    </div>
-                    <div class="lastName">
-                        <label for="lastName">Last Name</label>
-                        <input name="lastName" class="form-input" id="lastName" type="text" aria-describedby="nameHelp"
-                            required autocomplete="off" />
-                    </div>
+    <div class="login" style="margin-bottom: 2em;">
+        <div class="login-header">Register An Account</div>
+        <div class="login-body">
+            <form action="/register" method="post" class="login-form">
+                <div class="firstName">
+                    <label for="firstName">First Name</label>
+                    <input name="firstName" class="form-input" id="firstName" type="text" aria-describedby="nameHelp"
+                        required autocomplete="off" placeholder="First Name" />
+                </div>
 
+                <div class="lastName">
+                    <label for="lastName">Last Name</label>
+                    <input name="lastName" class="form-input" id="lastName" type="text" aria-describedby="nameHelp"
+                        required autocomplete="off" placeholder="Last Name" />
                 </div>
 
                 <!-- Email -->
                 <div class="email">
-                    <label for="email">Email</label>
-                    <input name="email" class="form-input" id="email" type="email" aria-describedby="emailHelp" required
-                        autocomplete="off" />
+                    <label for="email">Email address</label>
+                    <input name="email" class="form-input" id="email" type="email" aria-describedby="emailHelp"
+                        placeholder="Enter email" required autocomplete="off" />
                 </div>
 
                 <!-- Password -->
                 <div class="password">
-                    <div class="password-first-input">
-                        <label for="password">Password</label>
-                        <input name="password" class="form-input" id="password" type="password" required />
-                    </div>
-                    <div class="password-second-input">
-                        <label for="passwordConfirm">Password Confirm</label>
-                        <input name="passwordConfirm" class="form-input" id="passwordConfirm" type="password"
-                            required />
+                    <label for="password">Password</label>
+                    <input name="password" class="form-input" id="password" type="password" placeholder="Password"
+                        required />
+                </div>
 
-                    </div>
+                <div class="password-second-input">
+                    <label for="passwordConfirm">Password Confirm</label>
+                    <input name="passwordConfirm" class="form-input" id="passwordConfirm" type="password" required
+                        placeholder="Password Confirm" />
 
                 </div>
 
-                <button type="submit" class="submit-btn submit-register">Register</button>
+                <button type="submit" class="submit-btn">Login</button>
             </form>
         </div>
     </div>

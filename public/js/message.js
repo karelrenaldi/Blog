@@ -6,8 +6,7 @@ const wait = (ms) => new Promise(reslove => {
 })
 
 async function closeMessage() {
-  message.classList.add("closed");
-  await wait(350);
+  console.log("closed");
   message.classList.add("none");
 }
 

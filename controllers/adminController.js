@@ -14,8 +14,9 @@ exports.index = async (req, res) => {
       },
     },
   ]);
-  totalViewProject = totalViewProject[0].totalViews;
-  // get total view from post
+  totalViewProject =
+    totalViewProject.length === 0 ? 0 : totalViewProject[0].totalViews;
+
   let totalViewsPost = await Project.aggregate([
     {
       $group: {
@@ -24,8 +25,8 @@ exports.index = async (req, res) => {
       },
     },
   ]);
-
-  totalViewsPost = totalViewsPost[0].totalViews;
+  totalViewsPost =
+    totalViewsPost.length === 0 ? 0 : totalViewsPost[0].totalViews;
 
   res.render("admin/index", {
     viewProject: totalViewProject,

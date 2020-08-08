@@ -1,12 +1,10 @@
 const express = require("express");
-// todo
-// const passport = require("passport");
 const {
   index,
   loginGet,
   loginPost,
-  registerGet,
-  registerPost,
+  // registerGet,
+  // registerPost,
   project,
   logout,
   allProjects,
@@ -45,7 +43,7 @@ router.route("/").get(index).post(newsletter);
 router.route("/allProjects").get(allProjects);
 router.route("/login").get(checkLogin, loginGet).post(loginPost);
 router.route("/logout").get(canLogout, logout);
-router.route("/register").get(checkLogin, registerGet).post(registerPost);
+// router.route("/register").get(checkLogin, registerGet).post(registerPost);
 router.route("/project/:id").get(project);
 
 router.route("/allPosts").get(allPosts);

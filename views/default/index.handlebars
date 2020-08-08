@@ -1,10 +1,10 @@
-<main class="home">
+<main>
     <div class="header-home">
         <div class="title">
             <h1>ITB Hari Ini</h1>
             <p>
                 Situs crowdfunding, bakti untuk almamater
-                <br>
+                <br />
                 <span class="hastag">#Crowdfunding Untuk Almamater</span>
             </p>
             <div class="border"></div>
@@ -24,7 +24,7 @@
 
         <div class="category">
             {{#each allCategory}}
-            <a href="/allProjets?category={{query}}">
+            <a href="/allProjects?category={{query}}">
                 <div class="category-item">
                     <p class="category-number">{{index}}</p>
                     <h2 class="category-name">{{title}}</h2>
@@ -58,7 +58,7 @@
                 <p>Add your email to get the latest post in your inbox</p>
             </div>
             <form action="/" method="post" class="newsletter-form">
-                <input type="email" placeholder="Write Your Email Here" class="newsletter-email" name="email">
+                <input type="email" placeholder="Write Your Email Here" class="newsletter-email" name="email" />
                 <button type="submit" class="newsletter-button">Subscribe</button>
             </form>
         </div>

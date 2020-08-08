@@ -21,9 +21,9 @@ const getAllCategory = async function(){
 }
 
 exports.index = async(req, res) => {
-  
   const login = req.session.user;
   const allCategory = await getAllCategory();
+
   allCategory.map( (category, index) => {
     category["index"] = index + 1;
   });
@@ -114,50 +114,50 @@ exports.loginPost = async (req, res) => {
   }
 };
 
-exports.registerGet = async (req, res) => {
-  const allCategory = await getAllCategory();
-  res.render("default/register", { allCategory: allCategory });
-};
+// exports.registerGet = async (req, res) => {
+//   const allCategory = await getAllCategory();
+//   res.render("default/register", { allCategory: allCategory });
+// };
 
-exports.registerPost = async (req, res) => {
-  try {
-    // TODO MAKE MODAL TO ALERT SOME ERROR
-    const errors = [];
-    const { password, passwordConfirm, firstName, lastName, email } = req.body;
-    // Password confirmation
-    if (password !== passwordConfirm)
-      errors.push({ message: "Password not match" });
-    if (errors.length > 0) {
-      res.render("default/register", {
-        errors: errors,
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-      });
-    } else {
-      const registered = await User.findOne({ email: email });
-      if (registered) {
-        req.flash("failed-message", "Email already exist try to login");
-        res.redirect("/login");
-      } else {
-        const hashPassword = await bcrypt.hash(password, 10);
-        await User.create({
-          firstName: firstName,
-          lastName: lastName,
-          email: email,
-          password: hashPassword,
-        });
-        req.flash("success-message", "You Are Now Registered");
-        res.redirect("/login");
-      }
-    }
-  } catch (err) {
-    res.status(400).json({
-      status: "fail",
-      message: err,
-    });
-  }
-};
+// exports.registerPost = async (req, res) => {
+//   try {
+//     // TODO MAKE MODAL TO ALERT SOME ERROR
+//     const errors = [];
+//     const { password, passwordConfirm, firstName, lastName, email } = req.body;
+//     // Password confirmation
+//     if (password !== passwordConfirm)
+//       errors.push({ message: "Password not match" });
+//     if (errors.length > 0) {
+//       res.render("default/register", {
+//         errors: errors,
+//         firstName: firstName,
+//         lastName: lastName,
+//         email: email,
+//       });
+//     } else {
+//       const registered = await User.findOne({ email: email });
+//       if (registered) {
+//         req.flash("failed-message", "Email already exist try to login");
+//         res.redirect("/login");
+//       } else {
+//         const hashPassword = await bcrypt.hash(password, 10);
+//         await User.create({
+//           firstName: firstName,
+//           lastName: lastName,
+//           email: email,
+//           password: hashPassword,
+//         });
+//         req.flash("success-message", "You Are Now Registered");
+//         res.redirect("/login");
+//       }
+//     }
+//   } catch (err) {
+//     res.status(400).json({
+//       status: "fail",
+//       message: err,
+//     });
+//   }
+// };
 
 exports.project = async (req, res) => {
   const login = req.session.user;
@@ -197,12 +197,21 @@ exports.allPosts = async(req, res) => {
     const login = req.session.user;
     const allCategory = await getAllCategory();
     const dataPost = await Project.find().sort({creationDate: -1}).lean();
-    const dataClone = _.cloneDeep(dataPost);
-    res.render("default/posts", {
-      posts: dataClone,
-      allCategory: allCategory,
-      login: login,
-    });
+    if(dataPost.length === 0 ) {
+      res.render("default/posts", {
+        posts: dataPost,
+        allCategory: allCategory,
+        login: login,
+        available: false,
+      });
+    }else{
+      res.render("default/posts", {
+        posts: dataPost,
+        allCategory: allCategory,
+        login: login,
+        available: true
+      });
+    }
   } catch (err) {
     res.status(400).json({
       status: "fail",
@@ -253,28 +262,22 @@ exports.contact = async(req, res) => {
 }
 
 exports.leaderboard = async(req, res) => {
-  res.render("default/leaderboard");
+  const allCategory = await getAllCategory();
+  res.render("default/leaderboard", {allCategory: allCategory});
 }
 
 exports.leaderboardData = async(req, res) => {
   const { tab, page } = req.query;
-  const limit = 2;
+  const limit = 6;
   const skip = (page*1 - 1) * limit;
 
   if(tab === "recent"){
-    let leaderboardRecent = await Leaderboard.aggregate([
-      {$sort: {date: 1}},
-      {$facet: {
-        recent: [{ $skip: skip}, {$limit: limit}, {$sort: {date: -1}}]
-      }
-      },
-    ]);
-    leaderboardRecent = leaderboardRecent[0].recent;
+    let leaderboardRecent = await Leaderboard.find().sort({"$natural": -1}).skip(skip).limit(limit);
     
     res.status(200).json({
       status: "success",
       data: leaderboardRecent,
-    }); 
+    });
   }else if(tab === "highest"){
     let leaderboardHighest = await Leaderboard.aggregate([
       {$sort: {nominal: -1}},
@@ -313,7 +316,6 @@ exports.leaderboardData = async(req, res) => {
 
     leaderboardPopular = leaderboardPopular[0].highest;
 
-    console.log(leaderboardPopular);
     res.status(200).json({
       status: "success",
       data: leaderboardPopular,
