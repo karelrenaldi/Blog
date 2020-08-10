@@ -19,7 +19,7 @@ function renderData(data, tab) {
   if(tab === "recent" || tab === "highest"){
     const html = data.map(item => 
       `<div class="leaderboard-item">
-          <img src="https://img.icons8.com/ios-filled/50/000000/user-group-man-man.png"/>
+          <img src="/img/user-group-man-man.png"/>
           <div class="leaderboard-item-description">
               <h2>${item.name}</h2>
               <p>Rp. ${item.nominal}</p>
@@ -32,7 +32,7 @@ function renderData(data, tab) {
   }else if(tab === "popular"){
     const html = data.map(item => `
     <div class="leaderboard-item">
-        <img src="https://img.icons8.com/ios-filled/50/000000/user-group-man-man.png"/>
+        <img src="/img/user-group-man-man.png"/>
         <div class="leaderboard-item-description">
           <h2>${item.prokerName}</h2>
           <p>Total Donatur: ${item.totalDonors}</p>

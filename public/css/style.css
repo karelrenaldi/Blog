@@ -109,14 +109,15 @@ nav {
   height: 6.5em;
 }
 
-nav svg {
-  width: 6.4em;
+nav .logo {
+  width: 3.5em;
+  height: 3.5em;
+  margin-right: 0.5em;
 }
 
 .projects .nav-link {
   font-size: 0.8rem;
   font-weight: 600;
-  color: var(--blue);
 }
 
 .title .title-description h2 {
@@ -135,6 +136,10 @@ nav svg {
   letter-spacing: 0.6px;
   border-radius: 0.1em;
   cursor: pointer;
+}
+
+li ul .nav-link {
+  color: var(--blue);
 }
 
 .nav-list > *:hover {
@@ -225,7 +230,7 @@ ul .projects:hover ul {
 
 .menu-list .menu-list-item {
   border-bottom: 2px solid var(--blue);
-  color: var(--light-grey);
+  color: var(--blue);
   text-align: center;
   display: flex;
   justify-content: center;
@@ -237,7 +242,7 @@ ul .projects:hover ul {
 }
 
 .menu-list .menu-list-item > * {
-  color: var(--black);
+  color: var(--blue);
   font-size: 1rem;
 }
 
@@ -295,9 +300,9 @@ footer {
   padding: 0.5em 1em;
 }
 
-footer svg {
-  width: 6.6em;
-  height: 4em;
+footer .logo {
+  width: 4.5em;
+  height: 4.5em;
 }
 
 .footer-left {
@@ -686,8 +691,10 @@ footer svg {
 }
 
 .main-post .left-post-title .creator .creator-logo {
-  width: 5em;
-  height: 4em;
+  width: 4em;
+  height: 5em;
+  margin: 0.2em 0.4em;
+  padding: 0.2em;
 }
 
 .release-date {
@@ -1150,6 +1157,9 @@ div[role="tabpanel"] > * .fas {
   }
   nav {
     padding: 1em 1em 0 0;
+  }
+  nav .logo {
+    margin: 0 0.5em;
   }
   .menu-list .menu-list-item > * {
     font-size: 1.2rem;
