@@ -1,5 +1,15 @@
 # Swadaya Ganesha 
 Blog project for KM ITB (crowdfunding site)
+-------------------------------------------
+Tech stack
+- HTML
+- CSS
+- Vanilla Javascript
+- Node.js
+- Express.js
+- MongoDB
+- Mongoose
+-------------------------------------------
 ## Feature
 ### Default Feature
 #### 1) Home
